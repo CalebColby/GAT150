@@ -23,12 +23,12 @@ public:
 		m_vel{ vel }
 	{}
 
-	void Update(int width, int height)
+	void Update(const float dt)
 	{
-		m_pos += m_vel * neu::g_Time.GetDeltaTime();
+		m_pos += m_vel * dt;
 
-		if (m_pos.x >= width) { m_pos.x = 0; }
-		if (m_pos.y >= height) { m_pos.y = 0; }
+		if (m_pos.x >= neu::g_renderer.GetWidth()) { m_pos.x = 0; }
+		if (m_pos.y >= neu::g_renderer.GetHeight()) { m_pos.y = 0; }
 	}
 
 public:
@@ -36,9 +36,10 @@ public:
 	neu::Vector2 m_vel;
 };
 
-
 int main(int argc, char* argv[])
-{	
+{
+	INFO_LOG;
+	
 	//Initialize Engine Systems
 	neu::MemoryTracker::Initialize();
 	neu::seedRandom((unsigned int)time(nullptr));
@@ -81,7 +82,7 @@ int main(int argc, char* argv[])
 		neu::g_renderer.BeginFrame();
 		for (auto& star : stars) 
 		{
-			star.Update(neu::g_renderer.GetWidth(), neu::g_renderer.GetHeight());
+			star.Update(neu::g_Time.GetDeltaTime());
 
 			neu::g_renderer.SetColor(neu::random(256), neu::random(256), neu::random(256), 255);
 			neu::g_renderer.DrawPoint(star.m_pos.x, star.m_pos.y);

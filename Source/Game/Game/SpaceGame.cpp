@@ -12,8 +12,7 @@
 #include "Renderer/ModelManager.h"
 
 bool SpaceGame::Initialize()
-{
-	// create font / text objects
+{// create font / text objects
 	m_font = std::make_shared<neu::Font>("PaladinFLF.ttf", 24);
 	m_scoreText = std::make_unique<neu::Text>(m_font);
 	m_scoreText->Create(neu::g_renderer, "SCORE 0000", neu::Color{ 1, 1, 1, 1 });
@@ -72,7 +71,8 @@ void SpaceGame::Update(float dt)
 	case SpaceGame::eState::StartLevel:
 		m_scene->RemoveAll();
 		{
-			std::unique_ptr<Player> player = std::make_unique<Player>(20.0f, neu::Pi, neu::Transform{ { 400, 300 }, 0, 4 }, neu::g_ModelManager.Get("Ship.txt"));
+			std::unique_ptr<Player> player = std::make_unique<Player>(20.0f, neu::Pi, 
+				neu::Transform{ { 400, 300 }, 0, 4 }, neu::g_ModelManager.Get("Ship.txt"));
 			player->m_tag = "Player";
 			player->m_game = this;
 			player->SetDamping(0.9f);
@@ -85,7 +85,9 @@ void SpaceGame::Update(float dt)
 		if (m_spawnTimer >= m_spawnTime)
 		{
 			m_spawnTimer = 0;
-			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(neu::randomf(75.0f, 150.0f), neu::Pi, neu::Transform{ { neu::random(800), neu::random(600) }, neu::randomf(neu::TwoPi), 3}, neu::g_ModelManager.Get("EnemyShip.txt"));
+			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(neu::randomf(75.0f, 150.0f), neu::Pi, 
+				neu::Transform{ { neu::random(neu::g_renderer.GetWidth()), neu::random(neu::g_renderer.GetHeight()) }, neu::randomf(neu::TwoPi), 3}, 
+				neu::g_ModelManager.Get("EnemyShip.txt"));
 			enemy->m_tag = "Enemy";
 			enemy->m_game = this;
 			m_scene->Add(std::move(enemy));

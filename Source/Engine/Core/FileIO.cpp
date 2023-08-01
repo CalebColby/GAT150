@@ -1,4 +1,6 @@
 #include "FileIO.h"
+#include "Logger.h"
+#include <iostream>
 #include <filesystem>
 #include <string>
 #include <fstream>
@@ -8,6 +10,11 @@ namespace neu {
 	std::string getFilePath()
 	{
 		return std::filesystem::current_path().string();
+	}
+
+	std::string getFileName(const std::filesystem::path& path)
+	{
+		return path.filename().string();
 	}
 
 	bool setFilePath(const std::filesystem::path& path)
@@ -33,7 +40,12 @@ namespace neu {
 
 	bool readFile(const std::filesystem::path& path, std::string& buffer)
 	{
-		if (!fileExists(path)) return false;
+		if (!fileExists(path)) 
+		{
+			WARNING_LOG;
+
+			return false;
+		}
 
 		size_t size;
 		if (!getFileSize(path, size)) return false;
