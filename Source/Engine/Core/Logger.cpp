@@ -12,25 +12,25 @@ namespace neu
 		switch (logLevel)
 		{
 		case neu::LogLevel::Info:
-			*m_ostream << "INFORMATION: ";
+			*this << "INFORMATION: ";
 			break;
 		case neu::LogLevel::Warning:
-			*m_ostream << "WARNING: ";
+			*this << "WARNING: ";
 			break;
 		case neu::LogLevel::Error:
-			*m_ostream << "ERROR: ";
+			*this << "ERROR: ";
 			break;
 		case neu::LogLevel::Assert:
-			*m_ostream << "ASSERT: ";
+			*this << "ASSERT: ";
 			break;
 		default:
 			break;
 		}
 
-		*m_ostream << getFileName(filename) << "{" << line << "}\n";
+		*this << getFileName(filename) << "(" << line << "): ";
 
 		return true;;
 	}
 
-	Logger g_logger(LogLevel::Info, &std::cout);
+	Logger g_logger(LogLevel::Info, &std::cout, "log.txt");
 }

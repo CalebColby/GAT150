@@ -1,6 +1,7 @@
 #include "Core/Core.h"
 #include "Renderer/ModelManager.h"
 #include "Renderer/Renderer.h"
+#include "Renderer/Texture.h"
 #include "Renderer/ParticleSystem.h"
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"
@@ -38,8 +39,9 @@ public:
 
 int main(int argc, char* argv[])
 {
-	INFO_LOG;
-	
+	INFO_LOG("Game Start");
+
+
 	//Initialize Engine Systems
 	neu::MemoryTracker::Initialize();
 	neu::seedRandom((unsigned int)time(nullptr));
@@ -62,6 +64,10 @@ int main(int argc, char* argv[])
 
 		stars.push_back(Star(pos, vel));
 	}
+
+	// create texture
+	shared_ptr<neu::Texture> texture = make_shared<neu::Texture>();
+	texture->Create(neu::g_renderer, "ship.png");
 
 	//main game loop
 	bool quit = false;
@@ -90,6 +96,7 @@ int main(int argc, char* argv[])
 
 		game->Draw(neu::g_renderer);
 		neu::g_particleSystem.Draw(neu::g_renderer);
+		neu::g_renderer.DrawTexture(texture.get(), 200.0f, 200.0f, 0.0f);
 
 		neu::g_renderer.EndFrame();
 	}

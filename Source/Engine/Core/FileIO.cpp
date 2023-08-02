@@ -42,7 +42,7 @@ namespace neu {
 	{
 		if (!fileExists(path)) 
 		{
-			WARNING_LOG;
+			WARNING_LOG("File Not Loaded: " << path.string());
 
 			return false;
 		}
