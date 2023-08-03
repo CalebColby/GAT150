@@ -10,7 +10,12 @@ namespace neu
 		if (m_texture) SDL_DestroyTexture(m_texture);
 	}
 
-	bool Texture::Create(Renderer& renderer, const std::string& filename)
+	bool Texture::Create(std::string filename, ...)
+	{
+		return false;
+	}
+
+	bool Texture::Load(std::string filename, Renderer& renderer)
 	{
 		SDL_Surface* surface = IMG_Load(filename.c_str());
 		if (!surface)

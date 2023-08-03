@@ -13,6 +13,8 @@
 #include <iostream>
 #include <vector>
 #include <thread>
+#include <array>
+#include <map>
 
 using namespace std;
 
@@ -37,6 +39,18 @@ public:
 	neu::Vector2 m_vel;
 };
 
+
+template <typename T>
+void print(const std::string& s, const T& container)
+{
+	std::cout << s << std::endl;
+		for (auto element : container)
+		{
+			std::cout << element << " ";
+		}
+	std::cout << std::endl;
+}
+
 int main(int argc, char* argv[])
 {
 	INFO_LOG("Game Start");
@@ -48,7 +62,7 @@ int main(int argc, char* argv[])
 	neu::setFilePath("assets");
 	
 	neu::g_renderer.Initialize();
-	neu::g_renderer.CreateWindow("CSC196", 800,600);
+	neu::g_renderer.CreateWindow("GAT150", 800,600);
 
 	neu::g_inputSystem.Initialize();
 	neu::g_audioSystem.Initialize();
@@ -67,7 +81,7 @@ int main(int argc, char* argv[])
 
 	// create texture
 	shared_ptr<neu::Texture> texture = make_shared<neu::Texture>();
-	texture->Create(neu::g_renderer, "ship.png");
+	texture->Load("ship.png", neu::g_renderer);
 
 	//main game loop
 	bool quit = false;
