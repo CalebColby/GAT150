@@ -9,8 +9,8 @@ namespace neu
 	class ResourceManager
 	{
 	public:
-		template<typename T, typename ... TArgs>
-		std::shared_ptr<T> Get(const std::string& filename, TArgs ... args);
+		template<typename T, typename ...TArgs>
+		std::shared_ptr<T> Get(const std::string& filename, TArgs ...args);
 
 	private:
 		std::map<std::string, std::shared_ptr<Resource>> m_resources;
@@ -18,7 +18,7 @@ namespace neu
 
 
 	template<typename T, typename ...TArgs>
-	inline std::shared_ptr<T> ResourceManager::Get(const std::string& filename, TArgs ... args)
+	inline std::shared_ptr<T> ResourceManager::Get(const std::string& filename, TArgs ...args)
 	{
 		if (m_resources.find(filename) != m_resources.end())
 		{
