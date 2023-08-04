@@ -6,6 +6,7 @@
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"
 #include "Framework/Scene.h"
+#include "Framework/Resource/ResourceManager.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "SpaceGame.h"
@@ -40,16 +41,6 @@ public:
 };
 
 
-template <typename T>
-void print(const std::string& s, const T& container)
-{
-	std::cout << s << std::endl;
-		for (auto element : container)
-		{
-			std::cout << element << " ";
-		}
-	std::cout << std::endl;
-}
 
 int main(int argc, char* argv[])
 {
@@ -80,8 +71,7 @@ int main(int argc, char* argv[])
 	}
 
 	// create texture
-	shared_ptr<neu::Texture> texture = make_shared<neu::Texture>();
-	texture->Load("ship.png", neu::g_renderer);
+	//neu::res_t<neu::Texture> texture = neu::g_ResourceManager.Get<neu::Texture>("PlayerShip.png", neu::g_renderer);
 
 	//main game loop
 	bool quit = false;
@@ -110,7 +100,7 @@ int main(int argc, char* argv[])
 
 		game->Draw(neu::g_renderer);
 		neu::g_particleSystem.Draw(neu::g_renderer);
-		neu::g_renderer.DrawTexture(texture.get(), 200.0f, 200.0f, 0.0f);
+		//neu::g_renderer.DrawTexture(texture.get(), 200.0f, 200.0f, 0.0f);
 
 		neu::g_renderer.EndFrame();
 	}

@@ -1,4 +1,5 @@
 #include "Actor.h"
+#include "Components/RenderComponent.h"
 
 namespace neu
 {
@@ -16,6 +17,21 @@ namespace neu
 
 	void Actor::Draw(neu::Renderer& renderer)
 	{
-		m_model->Draw(renderer, m_transform);
+		//m_model->Draw(renderer, m_transform);
+
+		for (auto& comp : m_components)
+		{
+			RenderComponent* renComp = dynamic_cast<RenderComponent*>(comp.get());
+			if (renComp)
+			{
+				renComp->Draw(renderer);
+			}
+		}
+	}
+
+	void Actor::AddComponent(std::unique_ptr<Component> component)
+	{
+		component->m_owner = this;
+		m_components.push_back(std::move(component));
 	}
 }

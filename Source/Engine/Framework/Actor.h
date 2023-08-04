@@ -1,6 +1,7 @@
 #pragma once
 #include "Core/Core.h"
 #include "Renderer/Model.h"
+#include "Components/Component.h"
 #include <memory>
 
 namespace neu
@@ -19,6 +20,9 @@ namespace neu
 
 		virtual void Update(float dt);
 		virtual void Draw(neu::Renderer& renderer);
+
+		void AddComponent(std::unique_ptr<Component> component);
+
 		virtual void OnCollision(Actor* other) {}
 
 		float GetRadius() { return (m_model) ? m_model->GetRadius() * m_transform.scale : 0; }
@@ -36,6 +40,8 @@ namespace neu
 		std::string m_tag;
 
 	protected:
+		std::vector<std::unique_ptr<Component>> m_components;
+
 		bool m_destroyed = false;
 		float m_lifespan = -1.0f;
 

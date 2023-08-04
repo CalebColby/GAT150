@@ -4,6 +4,8 @@
 
 #include "Framework/Scene.h"
 #include "Framework/Emitter.h"
+#include "Framework/Resource/ResourceManager.h"
+#include "Framework/Components/SpriteComponent.h"
 
 #include "Audio/AudioSystem.h"
 #include "Input/InputSystem.h"
@@ -13,7 +15,7 @@
 
 bool SpaceGame::Initialize()
 {// create font / text objects
-	m_font = std::make_shared<neu::Font>("PaladinFLF.ttf", 24);
+	m_font = neu::g_ResourceManager.Get<neu::Font>("PaladinFLF.ttf", 24);
 	m_scoreText = std::make_unique<neu::Text>(m_font);
 	m_scoreText->Create(neu::g_renderer, "SCORE 0000", neu::Color{ 1, 1, 1, 1 });
 
@@ -71,11 +73,17 @@ void SpaceGame::Update(float dt)
 	case SpaceGame::eState::StartLevel:
 		m_scene->RemoveAll();
 		{
+			//create player
 			std::unique_ptr<Player> player = std::make_unique<Player>(20.0f, neu::Pi, 
 				neu::Transform{ { 400, 300 }, 0, 4 }, neu::g_ModelManager.Get("Ship.txt"));
 			player->m_tag = "Player";
 			player->m_game = this;
 			player->SetDamping(0.9f);
+			//create componets
+			std::unique_ptr<neu::SpriteComponent> component = std::make_unique<neu::SpriteComponent>();
+			component->m_texture = neu::g_ResourceManager.Get<neu::Texture>("PlayerShip.png", neu::g_renderer);
+			player->AddComponent(std::move(component));
+
 			m_scene->Add(std::move(player));
 		}
 		m_state = eState::Game;
@@ -90,6 +98,11 @@ void SpaceGame::Update(float dt)
 				neu::g_ModelManager.Get("EnemyShip.txt"));
 			enemy->m_tag = "Enemy";
 			enemy->m_game = this;
+
+			//create componets
+			std::unique_ptr<neu::SpriteComponent> component = std::make_unique<neu::SpriteComponent>();
+			component->m_texture = neu::g_ResourceManager.Get<neu::Texture>("EnemyShip.png", neu::g_renderer);
+			enemy->AddComponent(std::move(component));
 			m_scene->Add(std::move(enemy));
 		}
 		break;

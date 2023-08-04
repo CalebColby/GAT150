@@ -8,6 +8,9 @@
     <Filter Include="Source\Resource">
       <UniqueIdentifier>{45138979-9389-49b5-adc3-3962755ce275}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Components">
+      <UniqueIdentifier>{57e7ddf1-36ce-4868-8fef-5607f068cfab}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp">
@@ -21,6 +24,9 @@
     </ClCompile>
     <ClCompile Include="Resource\ResourceManager.cpp">
       <Filter>Source\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\SpriteComponent.cpp">
+      <Filter>Source\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -41,6 +47,15 @@
     </ClInclude>
     <ClInclude Include="Resource\ResourceManager.h">
       <Filter>Source\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Component.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\RenderComponent.h">
+      <Filter>Source\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\SpriteComponent.h">
+      <Filter>Source\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
