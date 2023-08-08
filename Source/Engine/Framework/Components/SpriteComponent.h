@@ -13,7 +13,5 @@ namespace neu
 	public:
 		res_t<Texture> m_texture;
 
-	private:
-
 	};
 }
