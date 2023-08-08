@@ -81,6 +81,10 @@ void Player::Update(float dt)
 		auto rocketPhysics = std::make_unique<neu::EnginePhysicsComponent>();
 		rocket->AddComponent(std::move(rocketPhysics));
 
+		auto sprite = std::make_unique<neu::SpriteComponent>();
+		sprite->m_texture = neu::g_ResourceManager.Get<neu::Texture>("Rocket.png", neu::g_renderer);
+		rocket->AddComponent(std::move(sprite));
+
 		rocket->m_tag = "Rocket";
 		rocket->m_scene = m_scene;
 		m_scene->Add(std::move(rocket));
