@@ -19,7 +19,7 @@ namespace neu
 		virtual void Draw(Renderer& renderer) = 0;
 
 		int GetScore() const { return m_score; }
-		void AddPoints(int points) { m_score += points; }
+		void AddPoints(int points) { m_score += points; if (m_score < 0) m_score = 0; }
 
 		int GetLives() const { return m_lives; }
 		void SetLives(int lives) { m_lives = lives; }

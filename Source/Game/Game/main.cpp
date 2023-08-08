@@ -1,14 +1,9 @@
 #include "Core/Core.h"
-#include "Renderer/ModelManager.h"
 #include "Renderer/Renderer.h"
-#include "Renderer/Texture.h"
-#include "Renderer/ParticleSystem.h"
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"
-#include "Framework/Scene.h"
-#include "Framework/Resource/ResourceManager.h"
-#include "Player.h"
-#include "Enemy.h"
+#include "Framework/Framework.h"
+
 #include "SpaceGame.h"
 
 #include <iostream>
@@ -41,10 +36,9 @@ public:
 };
 
 
-
 int main(int argc, char* argv[])
 {
-	INFO_LOG("Game Start");
+	INFO_LOG("Initialize Engine");
 
 
 	//Initialize Engine Systems

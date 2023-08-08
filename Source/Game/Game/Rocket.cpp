@@ -1,9 +1,8 @@
 #include "Rocket.h"
 #include "Bullet.h"
-#include "Framework/Scene.h"
-#include <Framework/Components/SpriteComponent.h>
-#include <Framework/Resource/ResourceManager.h>
-#include <Framework/Components/PhysicsComponent.h>
+
+#include "Framework/Framework.h"
+#include "Renderer/Renderer.h"
 
 void Rocket::Update(float dt)
 {

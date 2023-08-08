@@ -1,4 +1,11 @@
 #pragma once
+
+#include "Font.h"
+#include "Text.h"
+#include "Model.h"
+#include "ParticleSystem.h"
+#include "Texture.h"
+
 #include <string>
 #include "SDL2-2.28.1/include/SDL.h"
 

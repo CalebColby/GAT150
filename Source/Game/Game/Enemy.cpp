@@ -2,6 +2,8 @@
 #include "Player.h"
 #include "Bullet.h"
 #include "SpaceGame.h"
+
+#include "Renderer/Renderer.h"
 #include "Framework/Scene.h"
 #include "Framework/Emitter.h"
 #include "Input/InputSystem.h"

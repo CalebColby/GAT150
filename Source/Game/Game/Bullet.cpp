@@ -1,4 +1,5 @@
 #include "Bullet.h"
+#include "Renderer/Renderer.h"
 
 void Bullet::Update(float dt)
 {

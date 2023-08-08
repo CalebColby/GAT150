@@ -2,12 +2,10 @@
 #include "Bullet.h"
 #include "Rocket.h"
 #include "SpaceGame.h"
+
 #include "Input/InputSystem.h"
-#include "Framework/Scene.h"
-#include "Framework/Components/SpriteComponent.h"
-#include "Framework/Components/EnginePhysicsComponent.h"
-#include "Framework/Resource/ResourceManager.h"
-#include "Renderer/ModelManager.h"
+#include "Framework/Framework.h"
+#include "Renderer/Renderer.h"
 
 void Player::Update(float dt)
 {

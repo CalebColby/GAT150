@@ -19,7 +19,7 @@ namespace neu
 
 		void AddComponent(std::unique_ptr<Component> component);
 
-		template<typename T>
+		template<typename T = Component>
 		T* GetComponent();
 
 		virtual void OnCollision(Actor* other) {}
