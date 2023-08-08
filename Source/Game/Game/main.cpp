@@ -70,9 +70,6 @@ int main(int argc, char* argv[])
 		stars.push_back(Star(pos, vel));
 	}
 
-	// create texture
-	//neu::res_t<neu::Texture> texture = neu::g_ResourceManager.Get<neu::Texture>("PlayerShip.png", neu::g_renderer);
-
 	//main game loop
 	bool quit = false;
 	while (!quit)
@@ -100,8 +97,6 @@ int main(int argc, char* argv[])
 
 		game->Draw(neu::g_renderer);
 		neu::g_particleSystem.Draw(neu::g_renderer);
-		//neu::g_renderer.DrawTexture(texture.get(), 200.0f, 200.0f, 0.0f);
-
 		neu::g_renderer.EndFrame();
 	}
 

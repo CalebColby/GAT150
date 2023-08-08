@@ -1,6 +1,9 @@
 #include "Rocket.h"
 #include "Bullet.h"
 #include "Framework/Scene.h"
+#include <Framework/Components/SpriteComponent.h>
+#include <Framework/Resource/ResourceManager.h>
+#include <Framework/Components/PhysicsComponent.h>
 
 void Rocket::Update(float dt)
 {
@@ -8,7 +11,8 @@ void Rocket::Update(float dt)
 
 	neu::vec2 forward = neu::vec2{ 0,-1 }.Rotate(m_transform.rotation);
 	//m_transform.position += forward * m_speed * dt;
-	AddForce(forward);
+
+	GetComponent<neu::PhysicsComponent>()->ApplyForce(forward);
 	m_transform.position.x = neu::Wrap(m_transform.position.x, (float)neu::g_renderer.GetWidth());
 	m_transform.position.y = neu::Wrap(m_transform.position.y, (float)neu::g_renderer.GetHeight());
 }
@@ -22,7 +26,12 @@ void Rocket::OnCollision(Actor* other)
 		{
 			//create bullets
 			neu::Transform transform{m_transform.position, m_transform.rotation + neu::DegreesToRadians(15.0f * i), 1.0f};
-			std::unique_ptr<Bullet> bullet = std::make_unique<Bullet>(400.0f, transform, m_model);
+			std::unique_ptr<Bullet> bullet = std::make_unique<Bullet>(400.0f, transform);
+
+			std::unique_ptr<neu::SpriteComponent> component = std::make_unique<neu::SpriteComponent>();
+			component->m_texture = neu::g_ResourceManager.Get<neu::Texture>("Bullet.png", neu::g_renderer);
+			bullet->AddComponent(std::move(component));
+
 			bullet->m_tag = "RocketBullet";
 			m_scene->Add(std::move(bullet));
 		}

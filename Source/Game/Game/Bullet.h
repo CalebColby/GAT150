@@ -5,8 +5,8 @@
 class Bullet : public neu::Actor
 {
 public:
-	Bullet(float speed, const neu::Transform& transform, std::shared_ptr<neu::Model> model) :
-		Actor{ transform, model },
+	Bullet(float speed, const neu::Transform& transform) :
+		Actor{ transform },
 		m_speed{ speed }
 	{
 		neu::g_audioSystem.PlayOneShot("laser");

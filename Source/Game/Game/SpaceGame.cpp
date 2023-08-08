@@ -6,6 +6,7 @@
 #include "Framework/Emitter.h"
 #include "Framework/Resource/ResourceManager.h"
 #include "Framework/Components/SpriteComponent.h"
+#include "Framework/Components/EnginePhysicsComponent.h"
 
 #include "Audio/AudioSystem.h"
 #include "Input/InputSystem.h"
@@ -75,14 +76,17 @@ void SpaceGame::Update(float dt)
 		{
 			//create player
 			std::unique_ptr<Player> player = std::make_unique<Player>(20.0f, neu::Pi, 
-				neu::Transform{ { 400, 300 }, 0, 4 }, neu::g_ModelManager.Get("Ship.txt"));
+				neu::Transform{ { 400, 300 }, 0, 4 });
 			player->m_tag = "Player";
 			player->m_game = this;
-			player->SetDamping(0.9f);
 			//create componets
 			std::unique_ptr<neu::SpriteComponent> component = std::make_unique<neu::SpriteComponent>();
 			component->m_texture = neu::g_ResourceManager.Get<neu::Texture>("PlayerShip.png", neu::g_renderer);
 			player->AddComponent(std::move(component));
+
+			auto EPComp = std::make_unique<neu::EnginePhysicsComponent>();
+			EPComp->m_damping = 0.9f;
+			player->AddComponent(std::move(EPComp));
 
 			m_scene->Add(std::move(player));
 		}
@@ -94,8 +98,7 @@ void SpaceGame::Update(float dt)
 		{
 			m_spawnTimer = 0;
 			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(neu::randomf(75.0f, 150.0f), neu::Pi, 
-				neu::Transform{ { neu::random(neu::g_renderer.GetWidth()), neu::random(neu::g_renderer.GetHeight()) }, neu::randomf(neu::TwoPi), 3}, 
-				neu::g_ModelManager.Get("EnemyShip.txt"));
+				neu::Transform{ { neu::random(neu::g_renderer.GetWidth()), neu::random(neu::g_renderer.GetHeight()) }, neu::randomf(neu::TwoPi), 3});
 			enemy->m_tag = "Enemy";
 			enemy->m_game = this;
 

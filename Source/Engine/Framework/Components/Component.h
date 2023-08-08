@@ -1,5 +1,7 @@
 #pragma once
 
+//#include "Framework/Actor.h"
+
 namespace neu
 {
 	class Component

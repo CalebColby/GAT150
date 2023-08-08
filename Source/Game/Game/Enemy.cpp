@@ -29,7 +29,7 @@ void Enemy::Update(float dt)
 			{
 				//create bullet
 				neu::Transform transform{m_transform.position, m_transform.rotation, 1};
-				std::unique_ptr<Bullet> bullet = std::make_unique<Bullet>(400.0f, transform, m_model);
+				std::unique_ptr<Bullet> bullet = std::make_unique<Bullet>(400.0f, transform);
 				bullet->m_tag = "EnemyBullet";
 				m_scene->Add(std::move(bullet));
 				m_fireTimer = neu::randomf(m_fireRate - 0.5f, m_fireRate + 0.5f);

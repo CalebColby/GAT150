@@ -11,8 +11,10 @@ namespace neu
 			m_destroyed = m_lifespan <= 0;
 		}
 
-		m_transform.position += m_velocity * dt;
-		m_velocity *= std::pow(1 - m_damping, dt);
+		for (auto& comp : m_components)
+		{
+			comp->Update(dt);
+		}
 	}
 
 	void Actor::Draw(neu::Renderer& renderer)

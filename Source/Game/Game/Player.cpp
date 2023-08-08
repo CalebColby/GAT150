@@ -4,6 +4,9 @@
 #include "SpaceGame.h"
 #include "Input/InputSystem.h"
 #include "Framework/Scene.h"
+#include "Framework/Components/SpriteComponent.h"
+#include "Framework/Components/EnginePhysicsComponent.h"
+#include "Framework/Resource/ResourceManager.h"
 #include "Renderer/ModelManager.h"
 
 void Player::Update(float dt)
@@ -21,7 +24,9 @@ void Player::Update(float dt)
 	if (neu::g_inputSystem.GetKeyDown(SDL_SCANCODE_S)) thrust = -1;
 
 	neu::vec2 forward = neu::vec2{ 0,-1 }.Rotate(m_transform.rotation);
-	AddForce(forward * m_speed * thrust);
+
+	auto PhysicComp = GetComponent<neu::PhysicsComponent>();
+	PhysicComp->ApplyForce(forward * m_speed * thrust);
 
 	//m_transform.position += forward * m_speed * thrust * neu::g_Time.GetDeltaTime();
 	m_transform.position.x = neu::Wrap(m_transform.position.x, (float)neu::g_renderer.GetWidth());
@@ -33,7 +38,12 @@ void Player::Update(float dt)
 	{
 		//create bullet
 		neu::Transform transform1{m_transform.position, m_transform.rotation, 1};
-		std::unique_ptr<Bullet> bullet = std::make_unique<Bullet>( 400.0f, transform1, m_model );
+		std::unique_ptr<Bullet> bullet = std::make_unique<Bullet>( 400.0f, transform1);
+		
+		auto component = std::make_unique<neu::SpriteComponent>();
+		component->m_texture = neu::g_ResourceManager.Get<neu::Texture>("Bullet.png", neu::g_renderer);
+		bullet->AddComponent(std::move(component));
+
 		bullet->m_tag = "PlayerBullet";
 		m_scene->Add(std::move(bullet));
 
@@ -41,13 +51,19 @@ void Player::Update(float dt)
 		{
 			//create bullet
 			neu::Transform transform2{m_transform.position, m_transform.rotation + neu::DegreesToRadians(15), 1};
-			bullet = std::make_unique<Bullet>(400.0f, transform2, m_model);
+			bullet = std::make_unique<Bullet>(400.0f, transform2);
+			component = std::make_unique<neu::SpriteComponent>();
+			component->m_texture = neu::g_ResourceManager.Get<neu::Texture>("Bullet.png", neu::g_renderer);
+			bullet->AddComponent(std::move(component));
 			bullet->m_tag = "PlayerBullet";
 			m_scene->Add(std::move(bullet));
 
 			//create bullet
 			neu::Transform transform3{m_transform.position, m_transform.rotation + neu::DegreesToRadians(-15), 1};
-			bullet = std::make_unique<Bullet>(400.0f, transform3, m_model);
+			bullet = std::make_unique<Bullet>(400.0f, transform3);
+			component = std::make_unique<neu::SpriteComponent>();
+			component->m_texture = neu::g_ResourceManager.Get<neu::Texture>("Bullet.png", neu::g_renderer);
+			bullet->AddComponent(std::move(component));
 			bullet->m_tag = "PlayerBullet";
 			m_scene->Add(std::move(bullet));
 		}
@@ -60,7 +76,11 @@ void Player::Update(float dt)
 	{
 		//create rocket
 		neu::Transform transform{m_transform.position, m_transform.rotation + neu::DegreesToRadians(180), m_transform.scale};
-		std::unique_ptr<Rocket> rocket = std::make_unique<Rocket>(m_speed * 1.5f, transform, neu::g_ModelManager.Get("Rocket.txt"));
+		std::unique_ptr<Rocket> rocket = std::make_unique<Rocket>(m_speed * 1.5f, transform);
+
+		auto rocketPhysics = std::make_unique<neu::EnginePhysicsComponent>();
+		rocket->AddComponent(std::move(rocketPhysics));
+
 		rocket->m_tag = "Rocket";
 		rocket->m_scene = m_scene;
 		m_scene->Add(std::move(rocket));

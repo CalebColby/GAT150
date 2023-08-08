@@ -4,8 +4,8 @@
 class Enemy : public neu::Actor
 {
 public:
-	Enemy(float speed, float turnRate, const neu::Transform& transform, std::shared_ptr<neu::Model> model) :
-		Actor{ transform, model },
+	Enemy(float speed, float turnRate, const neu::Transform& transform) :
+		Actor{ transform },
 		m_speed{ speed },
 		m_turnRate{ turnRate }
 	{
