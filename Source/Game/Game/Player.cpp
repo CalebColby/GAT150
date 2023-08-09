@@ -77,6 +77,7 @@ void Player::Update(float dt)
 		std::unique_ptr<Rocket> rocket = std::make_unique<Rocket>(m_speed * 1.5f, transform);
 
 		auto rocketPhysics = std::make_unique<neu::EnginePhysicsComponent>();
+		rocketPhysics->m_damping = 0.9f;
 		rocket->AddComponent(std::move(rocketPhysics));
 
 		auto sprite = std::make_unique<neu::SpriteComponent>();

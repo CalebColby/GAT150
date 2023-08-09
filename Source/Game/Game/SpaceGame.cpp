@@ -73,8 +73,8 @@ void SpaceGame::Update(float dt)
 			player->m_tag = "Player";
 			player->m_game = this;
 			//create componets
-			std::unique_ptr<neu::SpriteComponent> component = std::make_unique<neu::SpriteComponent>();
-			component->m_texture = neu::g_ResourceManager.Get<neu::Texture>("PlayerShip.png", neu::g_renderer);
+			auto component = std::make_unique<neu::ModelRenderComponent>();
+			component->m_model = neu::g_ResourceManager.Get<neu::Model>("PlayerShip.txt", neu::g_renderer);
 			player->AddComponent(std::move(component));
 
 			auto EPComp = std::make_unique<neu::EnginePhysicsComponent>();

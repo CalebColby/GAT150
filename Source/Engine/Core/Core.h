@@ -12,3 +12,5 @@
 #include "Math/Transform.h"
 #include "Math/MathUtils.h"
 #include "Math/Color.h"
+#include "Math/Matrix22.h"
+#include "Math/Matrix33.h"

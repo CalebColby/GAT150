@@ -1,1 +1,1 @@
-INFORMATION: main.cpp(47): Game Start
+INFORMATION: main.cpp(41): Initialize Engine
