@@ -67,17 +67,21 @@ namespace neu
 		SDL_RenderDrawPointF(m_renderer, x, y);
 	}
 
-	void Renderer::DrawTexture(Texture* texture, float x, float y, float angle)
+	void Renderer::DrawTexture(Texture* texture, const Transform& transform)
 	{
-		vec2 size = texture->GetSize();
+		mat3 mx = transform.GetMatrix();
+
+		vec2 size = texture->GetSize() * mx.GetScale();
+		vec2 position = mx.GetTranslation();
+		float angle = -RadiansToDegrees(mx.GetRotation());
 
 		SDL_Rect dest;
-		dest.x = x; //(int)(x - (x * 0.5f));
-		dest.y = y; //(int)(y - (y * 0.5f));
-		dest.w = size.x;
-		dest.h = size.y;
+		dest.x = (int)(position.x - (size.x * 0.5f));
+		dest.y = (int)(position.y - (size.y * 0.5f));
+		dest.w = (int)size.x;
+		dest.h = (int)size.y;
 		// https://wiki.libsdl.org/SDL2/SDL_RenderCopyEx
-		SDL_RenderCopyEx(m_renderer, texture->m_texture, NULL, &dest, angle, NULL, SDL_FLIP_NONE);
+		SDL_RenderCopyEx(m_renderer, texture->m_texture, nullptr, &dest, (double)angle, nullptr, SDL_FLIP_NONE);
 	}
 
 	Renderer g_renderer;

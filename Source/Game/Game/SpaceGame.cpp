@@ -69,12 +69,12 @@ void SpaceGame::Update(float dt)
 		{
 			//create player
 			std::unique_ptr<Player> player = std::make_unique<Player>(20.0f, neu::Pi, 
-				neu::Transform{ { 400, 300 }, 0, 4 });
+				neu::Transform{ { 400, 300 }, 0, 1 });
 			player->m_tag = "Player";
 			player->m_game = this;
 			//create componets
-			auto component = std::make_unique<neu::ModelRenderComponent>();
-			component->m_model = neu::g_ResourceManager.Get<neu::Model>("PlayerShip.txt", neu::g_renderer);
+			auto component = std::make_unique<neu::SpriteComponent>();
+			component->m_texture = neu::g_ResourceManager.Get<neu::Texture>("PlayerShip.png", neu::g_renderer);
 			player->AddComponent(std::move(component));
 
 			auto EPComp = std::make_unique<neu::EnginePhysicsComponent>();
@@ -91,7 +91,7 @@ void SpaceGame::Update(float dt)
 		{
 			m_spawnTimer = 0;
 			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(neu::randomf(75.0f, 150.0f), neu::Pi, 
-				neu::Transform{ { neu::random(neu::g_renderer.GetWidth()), neu::random(neu::g_renderer.GetHeight()) }, neu::randomf(neu::TwoPi), 3});
+				neu::Transform{ { neu::random(neu::g_renderer.GetWidth()), neu::random(neu::g_renderer.GetHeight()) }, neu::randomf(neu::TwoPi), 1});
 			enemy->m_tag = "Enemy";
 			enemy->m_game = this;
 

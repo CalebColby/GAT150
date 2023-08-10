@@ -1,6 +1,6 @@
 #pragma once
 #include "Vector2.h"
-#include "Matrix22.h"
+#include "Matrix33.h"
 
 namespace neu
 {
@@ -19,12 +19,14 @@ namespace neu
 			scale { scale }
 		{}
 
-		mat2 GetMatrix() const
+		mat3 GetMatrix() const
 		{
-			mat2 Ms = mat2::CreateScale(scale);
-			mat2 Mr = mat2::CreateRotation(rotation);
+			mat3 Ms = mat3::CreateScale(scale);
+			mat3 Mr = mat3::CreateRotation(rotation);
+			mat3 Mt = mat3::CreateTranslation(position);
+			mat3 Mx = Mt * Ms * Mr;
 
-			return Ms * Mr;
+			return Mx;
 		}
 	};
 }
