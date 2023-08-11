@@ -69,7 +69,7 @@ void SpaceGame::Update(float dt)
 		{
 			//create player
 			std::unique_ptr<Player> player = std::make_unique<Player>(20.0f, neu::Pi, 
-				neu::Transform{ { 400, 300 }, 0, 1 });
+				neu::Transform{ { 400, 300 }, 0, 0.5f });
 			player->m_tag = "Player";
 			player->m_game = this;
 			//create componets
@@ -81,6 +81,12 @@ void SpaceGame::Update(float dt)
 			EPComp->m_damping = 0.9f;
 			player->AddComponent(std::move(EPComp));
 
+			auto collComp = std::make_unique<neu::CircleCollisionComponent>();
+			collComp->m_radius = 30.0f;
+			player->AddComponent(std::move(collComp));
+
+			player->Initialize();
+
 			m_scene->Add(std::move(player));
 		}
 		m_state = eState::Game;
@@ -91,7 +97,7 @@ void SpaceGame::Update(float dt)
 		{
 			m_spawnTimer = 0;
 			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(neu::randomf(75.0f, 150.0f), neu::Pi, 
-				neu::Transform{ { neu::random(neu::g_renderer.GetWidth()), neu::random(neu::g_renderer.GetHeight()) }, neu::randomf(neu::TwoPi), 1});
+				neu::Transform{ { neu::random(neu::g_renderer.GetWidth()), neu::random(neu::g_renderer.GetHeight()) }, neu::randomf(neu::TwoPi), 0.5f});
 			enemy->m_tag = "Enemy";
 			enemy->m_game = this;
 
@@ -99,6 +105,13 @@ void SpaceGame::Update(float dt)
 			std::unique_ptr<neu::SpriteComponent> component = std::make_unique<neu::SpriteComponent>();
 			component->m_texture = neu::g_ResourceManager.Get<neu::Texture>("EnemyShip.png", neu::g_renderer);
 			enemy->AddComponent(std::move(component));
+
+			auto collComp = std::make_unique<neu::CircleCollisionComponent>();
+			collComp->m_radius = 30.0f;
+			enemy->AddComponent(std::move(collComp));
+
+			enemy->Initialize();
+
 			m_scene->Add(std::move(enemy));
 		}
 		break;

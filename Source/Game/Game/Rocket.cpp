@@ -4,6 +4,19 @@
 #include "Framework/Framework.h"
 #include "Renderer/Renderer.h"
 
+bool Rocket::Initialize()
+{
+	auto collcomp = GetComponent<neu::CollisionComponent>();
+	auto renComp = GetComponent<neu::RenderComponent>();
+	if (collcomp && renComp)
+	{
+		float scale = m_transform.scale;
+		collcomp->m_radius = renComp->GetRadius() * scale;
+	}
+
+	return true;
+}
+
 void Rocket::Update(float dt)
 {
 	Actor::Update(dt);
@@ -30,6 +43,12 @@ void Rocket::OnCollision(Actor* other)
 			std::unique_ptr<neu::SpriteComponent> component = std::make_unique<neu::SpriteComponent>();
 			component->m_texture = neu::g_ResourceManager.Get<neu::Texture>("Bullet.png", neu::g_renderer);
 			bullet->AddComponent(std::move(component));
+
+			auto collComp = std::make_unique<neu::CircleCollisionComponent>();
+			collComp->m_radius = 30.0f;
+			bullet->AddComponent(std::move(collComp));
+
+			bullet->Initialize();
 
 			bullet->m_tag = "RocketBullet";
 			m_scene->Add(std::move(bullet));

@@ -3,6 +3,23 @@
 
 namespace neu
 {
+	bool Actor::Initialize()
+	{
+		for (auto& comp : m_components)
+		{
+			comp->Initialize();
+		}
+
+		return true;
+	}
+
+	void Actor::OnDestroy()
+	{
+		for (auto& comp : m_components)
+		{
+			comp->OnDestroy();
+		}
+	}
 	void Actor::Update(float dt)
 	{
 		if (m_lifespan != -1.0f)

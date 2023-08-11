@@ -1,4 +1,5 @@
 #pragma once
+#include "Object.h"
 #include "Core/Core.h"
 #include "Renderer/Model.h"
 #include "Components/Component.h"
@@ -6,13 +7,16 @@
 
 namespace neu
 {
-	class Actor
+	class Actor : public Object
 	{
 	public:
 		Actor() = default;
 		Actor(const neu::Transform& transform) :
 			m_transform{ transform }
 		{}
+
+		virtual bool Initialize() override;
+		virtual void OnDestroy() override;
 
 		virtual void Update(float dt);
 		virtual void Draw(neu::Renderer& renderer);
@@ -24,7 +28,6 @@ namespace neu
 
 		virtual void OnCollision(Actor* other) {}
 
-		float GetRadius() { return 15.0f; }
 
 		friend class Scene;
 		friend class Game;

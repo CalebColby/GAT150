@@ -1,16 +1,17 @@
 #pragma once
 #include "Framework/Actor.h"
+#include "Framework/Components/PhysicsComponent.h"
 
 class Player : public neu::Actor
 {
 public:
 	Player(float speed, float turnRate, const neu::Transform& transform) : 
-		Actor{ transform},
+		Actor{ transform },
 		m_speed{ speed },
 		m_turnRate{ turnRate }
 	{}
 
-
+	bool Initialize() override;
 	void Update(float dt) override;
 	void OnCollision(Actor* other) override;
 
@@ -24,4 +25,6 @@ private:
 	float m_health = 100.0f;
 
 	bool m_poweredUp = false;
+
+	neu::PhysicsComponent* m_physicsComponent = nullptr;
 };

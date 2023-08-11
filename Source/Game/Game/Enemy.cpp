@@ -4,10 +4,23 @@
 #include "SpaceGame.h"
 
 #include "Renderer/Renderer.h"
-#include "Framework/Scene.h"
-#include "Framework/Emitter.h"
+#include "Framework/Framework.h"
 #include "Input/InputSystem.h"
 
+
+
+bool Enemy::Initialize()
+{
+	auto collcomp = GetComponent<neu::CollisionComponent>();
+	auto renComp = GetComponent<neu::RenderComponent>();
+	if (collcomp && renComp)
+	{
+		float scale = m_transform.scale;
+		collcomp->m_radius = renComp->GetRadius() * scale;
+	}
+
+	return true;
+}
 
 void Enemy::Update(float dt)
 {

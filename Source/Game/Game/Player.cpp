@@ -7,6 +7,22 @@
 #include "Framework/Framework.h"
 #include "Renderer/Renderer.h"
 
+bool Player::Initialize()
+{
+	Actor::Initialize();
+
+	m_physicsComponent = GetComponent<neu::PhysicsComponent>();
+	auto collcomp = GetComponent<neu::CollisionComponent>();
+	auto renComp = GetComponent<neu::RenderComponent>();
+	if (collcomp && renComp)
+	{
+		float scale = m_transform.scale;
+		collcomp->m_radius = renComp->GetRadius() * scale * 0.75f;
+	}
+
+	return true;
+}
+
 void Player::Update(float dt)
 {
 	Actor::Update(dt);
@@ -23,8 +39,7 @@ void Player::Update(float dt)
 
 	neu::vec2 forward = neu::vec2{ 0,-1 }.Rotate(m_transform.rotation);
 
-	auto PhysicComp = GetComponent<neu::PhysicsComponent>();
-	PhysicComp->ApplyForce(forward * m_speed * thrust);
+	m_physicsComponent->ApplyForce(forward * m_speed * thrust);
 
 	//m_transform.position += forward * m_speed * thrust * neu::g_Time.GetDeltaTime();
 	m_transform.position.x = neu::Wrap(m_transform.position.x, (float)neu::g_renderer.GetWidth());
@@ -42,6 +57,12 @@ void Player::Update(float dt)
 		component->m_texture = neu::g_ResourceManager.Get<neu::Texture>("Bullet.png", neu::g_renderer);
 		bullet->AddComponent(std::move(component));
 
+		auto collComp = std::make_unique<neu::CircleCollisionComponent>();
+		collComp->m_radius = 30.0f;
+		bullet->AddComponent(std::move(collComp));
+
+		bullet->Initialize();
+
 		bullet->m_tag = "PlayerBullet";
 		m_scene->Add(std::move(bullet));
 
@@ -53,7 +74,11 @@ void Player::Update(float dt)
 			component = std::make_unique<neu::SpriteComponent>();
 			component->m_texture = neu::g_ResourceManager.Get<neu::Texture>("Bullet.png", neu::g_renderer);
 			bullet->AddComponent(std::move(component));
+			collComp = std::make_unique<neu::CircleCollisionComponent>();
+			collComp->m_radius = 30.0f;
+			bullet->AddComponent(std::move(collComp));
 			bullet->m_tag = "PlayerBullet";
+			bullet->Initialize();
 			m_scene->Add(std::move(bullet));
 
 			//create bullet
@@ -62,7 +87,11 @@ void Player::Update(float dt)
 			component = std::make_unique<neu::SpriteComponent>();
 			component->m_texture = neu::g_ResourceManager.Get<neu::Texture>("Bullet.png", neu::g_renderer);
 			bullet->AddComponent(std::move(component));
+			collComp = std::make_unique<neu::CircleCollisionComponent>();
+			collComp->m_radius = 30.0f;
+			bullet->AddComponent(std::move(collComp));
 			bullet->m_tag = "PlayerBullet";
+			bullet->Initialize();
 			m_scene->Add(std::move(bullet));
 		}
 	}
@@ -84,8 +113,13 @@ void Player::Update(float dt)
 		sprite->m_texture = neu::g_ResourceManager.Get<neu::Texture>("Rocket.png", neu::g_renderer);
 		rocket->AddComponent(std::move(sprite));
 
+		auto collComp = std::make_unique<neu::CircleCollisionComponent>();
+		collComp->m_radius = 30.0f;
+		rocket->AddComponent(std::move(collComp));
+
 		rocket->m_tag = "Rocket";
 		rocket->m_scene = m_scene;
+		rocket->Initialize();
 		m_scene->Add(std::move(rocket));
 		//firing Rockets costs Score
 		m_game->AddPoints(-50);

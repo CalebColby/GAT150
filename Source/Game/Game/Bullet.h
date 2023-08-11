@@ -14,6 +14,8 @@ public:
 		
 	}
 
+	bool Initialize() override;
+
 	void Update(float dt) override;
 	void OnCollision(Actor* other) override;
 

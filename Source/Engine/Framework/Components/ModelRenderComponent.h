@@ -12,6 +12,7 @@ namespace neu
 
 		virtual void Update(float dt) override;
 		virtual void Draw(Renderer& renderer) override;
+		virtual float GetRadius() override { return m_model->GetRadius(); }
 
 	public:
 		res_t<Model> m_model;

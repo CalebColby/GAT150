@@ -1,5 +1,6 @@
 #include "Scene.h"
 #include "Actor.h"
+#include "Components/CollisionComponent.h"
 
 namespace neu
 {
@@ -20,10 +21,12 @@ namespace neu
 		{	
 			for (auto iter2 = std::next(iter1, 1); iter2 != m_actors.end(); iter2++)
 			{
-				float distance = (*iter1)->m_transform.position.Distance((*iter2)->m_transform.position);
-				float combinedRadius = (*iter1)->GetRadius() + (*iter2)->GetRadius();
+				auto* CollsionComp1 = (*iter1)->GetComponent<CollisionComponent>();
+				auto* CollsionComp2 = (*iter2)->GetComponent<CollisionComponent>();
 
-				if (distance <= combinedRadius) 
+				if (!CollsionComp1 || !CollsionComp2) continue;
+
+				if (CollsionComp1->CheckCollision(CollsionComp2)) 
 				{
 					(*iter1)->OnCollision(iter2->get());
 					(*iter2)->OnCollision(iter1->get());
