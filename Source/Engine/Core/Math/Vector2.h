@@ -81,6 +81,12 @@ namespace neu
 		return v1.x * v2.x + v1.y * v2.y;
 	}
 
+	inline std::ostream& operator<<(std::ostream& stream, const Vector2& v)
+	{
+		stream << v.x << " " << v.y;
+		return stream;
+	}
+
 	inline std::istream& operator >> (std::istream& stream, Vector2& v)
 	{
 		std::string line;

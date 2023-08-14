@@ -5,9 +5,10 @@
 #include "Emitter.h"
 #include "Game.h"
 #include "Scene.h"
+#include "Factory.h"
+#include "Singleton.h"
 
 #include "Resource/ResourceManager.h"
-
 
 #include "Components/EnginePhysicsComponent.h"
 

@@ -54,7 +54,7 @@ void Player::Update(float dt)
 		std::unique_ptr<Bullet> bullet = std::make_unique<Bullet>( 400.0f, transform1);
 		
 		auto component = std::make_unique<neu::SpriteComponent>();
-		component->m_texture = neu::g_ResourceManager.Get<neu::Texture>("Bullet.png", neu::g_renderer);
+		component->m_texture = GET_RESOURCE(neu::Texture, "Bullet.png", neu::g_renderer);
 		bullet->AddComponent(std::move(component));
 
 		auto collComp = std::make_unique<neu::CircleCollisionComponent>();
@@ -72,7 +72,7 @@ void Player::Update(float dt)
 			neu::Transform transform2{m_transform.position, m_transform.rotation + neu::DegreesToRadians(15), 1};
 			bullet = std::make_unique<Bullet>(400.0f, transform2);
 			component = std::make_unique<neu::SpriteComponent>();
-			component->m_texture = neu::g_ResourceManager.Get<neu::Texture>("Bullet.png", neu::g_renderer);
+			component->m_texture = GET_RESOURCE(neu::Texture, "Bullet.png", neu::g_renderer);
 			bullet->AddComponent(std::move(component));
 			collComp = std::make_unique<neu::CircleCollisionComponent>();
 			collComp->m_radius = 30.0f;
@@ -85,7 +85,7 @@ void Player::Update(float dt)
 			neu::Transform transform3{m_transform.position, m_transform.rotation + neu::DegreesToRadians(-15), 1};
 			bullet = std::make_unique<Bullet>(400.0f, transform3);
 			component = std::make_unique<neu::SpriteComponent>();
-			component->m_texture = neu::g_ResourceManager.Get<neu::Texture>("Bullet.png", neu::g_renderer);
+			component->m_texture = GET_RESOURCE(neu::Texture, "Bullet.png", neu::g_renderer);
 			bullet->AddComponent(std::move(component));
 			collComp = std::make_unique<neu::CircleCollisionComponent>();
 			collComp->m_radius = 30.0f;
@@ -110,7 +110,7 @@ void Player::Update(float dt)
 		rocket->AddComponent(std::move(rocketPhysics));
 
 		auto sprite = std::make_unique<neu::SpriteComponent>();
-		sprite->m_texture = neu::g_ResourceManager.Get<neu::Texture>("Rocket.png", neu::g_renderer);
+		sprite->m_texture = GET_RESOURCE(neu::Texture, "Rocket.png", neu::g_renderer);
 		rocket->AddComponent(std::move(sprite));
 
 		auto collComp = std::make_unique<neu::CircleCollisionComponent>();

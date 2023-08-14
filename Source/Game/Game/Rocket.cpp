@@ -41,7 +41,7 @@ void Rocket::OnCollision(Actor* other)
 			std::unique_ptr<Bullet> bullet = std::make_unique<Bullet>(400.0f, transform);
 
 			std::unique_ptr<neu::SpriteComponent> component = std::make_unique<neu::SpriteComponent>();
-			component->m_texture = neu::g_ResourceManager.Get<neu::Texture>("Bullet.png", neu::g_renderer);
+			component->m_texture = GET_RESOURCE(neu::Texture, "Bullet.png", neu::g_renderer);
 			bullet->AddComponent(std::move(component));
 
 			auto collComp = std::make_unique<neu::CircleCollisionComponent>();

@@ -38,13 +38,41 @@ public:
 
 int main(int argc, char* argv[])
 {
-	INFO_LOG("Initialize Engine");
+	neu::Factory::Instance().Register<neu::SpriteComponent>("SpriteComponent");
 
+	INFO_LOG("Initialize Engine");
 
 	//Initialize Engine Systems
 	neu::MemoryTracker::Initialize();
 	neu::seedRandom((unsigned int)time(nullptr));
-	neu::setFilePath("assets");
+	neu::setFilePath("Assets");
+
+	rapidjson::Document document;
+	neu::Json::Load("json.txt", document);
+
+	int i1;
+	neu::Json::Read(document, "integer1", i1);
+	std::cout << i1 << std::endl;
+
+	int i2;
+	neu::Json::Read(document, "integer2", i2);
+	std::cout << i2 << std::endl;
+
+	std::string str;
+	neu::Json::Read(document, "string", str);
+	std::cout << str << std::endl;
+
+	bool b;
+	neu::Json::Read(document, "boolean", b);
+	std::cout << b << std::endl;
+
+	float f;
+	neu::Json::Read(document, "float", f);
+	std::cout << f << std::endl;
+
+	neu::vec2 v2;
+	neu::Json::Read(document, "Vector2", v2);
+	std::cout << v2 << std::endl;
 	
 	neu::g_renderer.Initialize();
 	neu::g_renderer.CreateWindow("GAT150", 800,600);

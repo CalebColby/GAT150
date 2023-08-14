@@ -9,7 +9,7 @@
 
 bool SpaceGame::Initialize()
 {// create font / text objects
-	m_font = neu::g_ResourceManager.Get<neu::Font>("PaladinFLF.ttf", 24);
+	m_font = GET_RESOURCE(neu::Font, "PaladinFLF.ttf", 24);
 	m_scoreText = std::make_unique<neu::Text>(m_font);
 	m_scoreText->Create(neu::g_renderer, "SCORE 0000", neu::Color{ 1, 1, 1, 1 });
 
@@ -73,8 +73,9 @@ void SpaceGame::Update(float dt)
 			player->m_tag = "Player";
 			player->m_game = this;
 			//create componets
-			auto component = std::make_unique<neu::SpriteComponent>();
-			component->m_texture = neu::g_ResourceManager.Get<neu::Texture>("PlayerShip.png", neu::g_renderer);
+			auto component = neu::Factory::Instance().Create<neu::SpriteComponent>("SpriteComponent"); 
+			//std::make_unique<neu::SpriteComponent>();
+			component->m_texture = GET_RESOURCE(neu::Texture, "PlayerShip.png", neu::g_renderer);
 			player->AddComponent(std::move(component));
 
 			auto EPComp = std::make_unique<neu::EnginePhysicsComponent>();
@@ -103,7 +104,7 @@ void SpaceGame::Update(float dt)
 
 			//create componets
 			std::unique_ptr<neu::SpriteComponent> component = std::make_unique<neu::SpriteComponent>();
-			component->m_texture = neu::g_ResourceManager.Get<neu::Texture>("EnemyShip.png", neu::g_renderer);
+			component->m_texture = GET_RESOURCE(neu::Texture, "EnemyShip.png", neu::g_renderer);
 			enemy->AddComponent(std::move(component));
 
 			auto collComp = std::make_unique<neu::CircleCollisionComponent>();

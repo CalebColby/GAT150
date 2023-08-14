@@ -1,12 +1,15 @@
 #pragma once
 #include "Resource.h"
+#include "Framework/Singleton.h"
 #include <map>
 #include <memory>
 #include <string>
 
+#define GET_RESOURCE(type, filename, ...) neu::ResourceManager::Instance().Get<type>(filename, __VA_ARGS__)
+
 namespace neu
 {
-	class ResourceManager
+	class ResourceManager : public Singleton<ResourceManager>
 	{
 	public:
 		template<typename T, typename ...TArgs>
@@ -31,5 +34,4 @@ namespace neu
 
 		return resource;
 	}
-	extern ResourceManager g_ResourceManager;
 }
