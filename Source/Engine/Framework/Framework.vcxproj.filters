@@ -22,7 +22,7 @@
     <ClCompile Include="Emitter.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Components\SpriteComponent.cpp">
+    <ClCompile Include="Components\SpriteRenderComponent.cpp">
       <Filter>Source\Components</Filter>
     </ClCompile>
     <ClCompile Include="Components\EnginePhysicsComponent.cpp">
@@ -33,6 +33,9 @@
     </ClCompile>
     <ClCompile Include="Components\CircleCollisionComponent.cpp">
       <Filter>Source\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -60,7 +63,7 @@
     <ClInclude Include="Components\RenderComponent.h">
       <Filter>Source\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Components\SpriteComponent.h">
+    <ClInclude Include="Components\SpriteRenderComponent.h">
       <Filter>Source\Components</Filter>
     </ClInclude>
     <ClInclude Include="Components\PhysicsComponent.h">

@@ -40,7 +40,7 @@ void Rocket::OnCollision(Actor* other)
 			neu::Transform transform{m_transform.position, m_transform.rotation + neu::DegreesToRadians(15.0f * i), 1.0f};
 			std::unique_ptr<Bullet> bullet = std::make_unique<Bullet>(400.0f, transform);
 
-			std::unique_ptr<neu::SpriteComponent> component = std::make_unique<neu::SpriteComponent>();
+			std::unique_ptr<neu::SpriteRenderComponent> component = std::make_unique<neu::SpriteRenderComponent>();
 			component->m_texture = GET_RESOURCE(neu::Texture, "Bullet.png", neu::g_renderer);
 			bullet->AddComponent(std::move(component));
 

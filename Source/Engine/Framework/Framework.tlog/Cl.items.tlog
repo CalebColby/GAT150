@@ -2,7 +2,7 @@ C:\My Projects\GAT150\Source\Engine\Framework\Actor.cpp
 C:\My Projects\GAT150\Source\Engine\Framework\Components\CircleCollisionComponent.cpp
 C:\My Projects\GAT150\Source\Engine\Framework\Components\EnginePhysicsComponent.cpp
 C:\My Projects\GAT150\Source\Engine\Framework\Components\ModelRenderComponent.cpp
-C:\My Projects\GAT150\Source\Engine\Framework\Components\SpriteComponent.cpp
+C:\My Projects\GAT150\Source\Engine\Framework\Components\SpriteRenderComponent.cpp
 C:\My Projects\GAT150\Source\Engine\Framework\Emitter.cpp
-C:\My Projects\GAT150\Source\Engine\Framework\Resource\ResourceManager.cpp
+C:\My Projects\GAT150\Source\Engine\Framework\Object.cpp
 C:\My Projects\GAT150\Source\Engine\Framework\Scene.cpp

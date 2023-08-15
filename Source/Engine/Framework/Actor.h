@@ -10,6 +10,8 @@ namespace neu
 	class Actor : public Object
 	{
 	public:
+		CLASS_DECLARATION(Actor);
+
 		Actor() = default;
 		Actor(const neu::Transform& transform) :
 			m_transform{ transform }

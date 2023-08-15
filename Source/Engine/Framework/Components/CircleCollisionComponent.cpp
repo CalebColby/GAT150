@@ -3,6 +3,8 @@
 
 namespace neu
 {
+    CLASS_REGISTER(CircleCollisionComponent);
+
     void CircleCollisionComponent::Update(float dt)
     {
         //

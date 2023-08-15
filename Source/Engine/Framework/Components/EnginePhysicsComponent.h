@@ -6,7 +6,7 @@ namespace neu
 	class EnginePhysicsComponent : public PhysicsComponent
 	{
 	public:
-
+		CLASS_DECLARATION(EnginePhysicsComponent);
 	public:
 
 

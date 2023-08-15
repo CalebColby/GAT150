@@ -14,6 +14,8 @@ namespace neu
 		virtual void Draw(Renderer& renderer) override;
 		virtual float GetRadius() override { return m_model->GetRadius(); }
 
+		CLASS_DECLARATION(ModelRenderComponent);
+
 	public:
 		res_t<Model> m_model;
 	};

@@ -3,6 +3,8 @@
 
 namespace neu
 {
+	CLASS_REGISTER(EnginePhysicsComponent);
+
 	void EnginePhysicsComponent::Update(float dt)
 	{
 		m_owner->m_transform.position += m_velocity * dt;

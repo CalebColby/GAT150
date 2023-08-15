@@ -3,6 +3,7 @@
 
 namespace neu
 {
+	CLASS_REGISTER(ModelRenderComponent);
 	void ModelRenderComponent::Update(float dt)
 	{
 		//

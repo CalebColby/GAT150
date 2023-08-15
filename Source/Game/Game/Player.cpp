@@ -53,7 +53,7 @@ void Player::Update(float dt)
 		neu::Transform transform1{m_transform.position, m_transform.rotation, 1};
 		std::unique_ptr<Bullet> bullet = std::make_unique<Bullet>( 400.0f, transform1);
 		
-		auto component = std::make_unique<neu::SpriteComponent>();
+		auto component = std::make_unique<neu::SpriteRenderComponent>();
 		component->m_texture = GET_RESOURCE(neu::Texture, "Bullet.png", neu::g_renderer);
 		bullet->AddComponent(std::move(component));
 
@@ -71,7 +71,7 @@ void Player::Update(float dt)
 			//create bullet
 			neu::Transform transform2{m_transform.position, m_transform.rotation + neu::DegreesToRadians(15), 1};
 			bullet = std::make_unique<Bullet>(400.0f, transform2);
-			component = std::make_unique<neu::SpriteComponent>();
+			component = std::make_unique<neu::SpriteRenderComponent>();
 			component->m_texture = GET_RESOURCE(neu::Texture, "Bullet.png", neu::g_renderer);
 			bullet->AddComponent(std::move(component));
 			collComp = std::make_unique<neu::CircleCollisionComponent>();
@@ -84,7 +84,7 @@ void Player::Update(float dt)
 			//create bullet
 			neu::Transform transform3{m_transform.position, m_transform.rotation + neu::DegreesToRadians(-15), 1};
 			bullet = std::make_unique<Bullet>(400.0f, transform3);
-			component = std::make_unique<neu::SpriteComponent>();
+			component = std::make_unique<neu::SpriteRenderComponent>();
 			component->m_texture = GET_RESOURCE(neu::Texture, "Bullet.png", neu::g_renderer);
 			bullet->AddComponent(std::move(component));
 			collComp = std::make_unique<neu::CircleCollisionComponent>();
@@ -109,7 +109,7 @@ void Player::Update(float dt)
 		rocketPhysics->m_damping = 0.9f;
 		rocket->AddComponent(std::move(rocketPhysics));
 
-		auto sprite = std::make_unique<neu::SpriteComponent>();
+		auto sprite = std::make_unique<neu::SpriteRenderComponent>();
 		sprite->m_texture = GET_RESOURCE(neu::Texture, "Rocket.png", neu::g_renderer);
 		rocket->AddComponent(std::move(sprite));
 

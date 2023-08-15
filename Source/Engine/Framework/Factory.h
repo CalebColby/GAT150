@@ -1,10 +1,13 @@
 #pragma once
 
-#include "Object.h"
 #include "Singleton.h"
+#include "Core/Logger.h"
 
 #include <memory>
 #include <map>
+#include <string>
+
+#define CREATE_CLASS(classname) neu::Factory::Instance().Create<neu::classname>(#classname);
 
 namespace neu
 {
@@ -13,17 +16,18 @@ namespace neu
 	public:
 		virtual ~CreatorBase() = default;
 
-		virtual std::unique_ptr<Object> Create() = 0;
+		virtual std::unique_ptr<class Object> Create() = 0;
 	};
 
 	template <typename T>
 	class Creator : public CreatorBase
 	{
 	public:
-		virtual std::unique_ptr<Object> Create() override
+		virtual std::unique_ptr<class Object> Create() override
 		{
 			return std::make_unique<T>();
 		}
+
 	};
 
 	class Factory : public Singleton<Factory>
@@ -35,6 +39,10 @@ namespace neu
 		template<typename T>
 		std::unique_ptr<T> Create(const std::string& key);
 
+		friend class Singleton;
+
+	protected:
+		Factory() = default;
 
 	private:
 		std::map<std::string, std::unique_ptr<CreatorBase>> m_registry;
@@ -43,7 +51,10 @@ namespace neu
 	template<typename T>
 	inline bool Factory::Register(const std::string& key)
 	{
-		m_registry[key] = std::make_unique<Creator<T>>();
+		INFO_LOG("Class Creator Registered: " << key);
+
+		m_registry[key] =
+			std::make_unique<Creator<T>>();
 
 		return true;
 	}
@@ -56,5 +67,7 @@ namespace neu
 		{
 			return std::unique_ptr<T>(dynamic_cast<T*>(iter->second->Create().release()));
 		}
+
+		return nullptr;
 	}
 }

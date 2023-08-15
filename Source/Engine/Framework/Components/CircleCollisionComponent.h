@@ -10,6 +10,8 @@ namespace neu
 		virtual void Update(float dt) override;
 		virtual bool CheckCollision(CollisionComponent* other) override;
 
+		CLASS_DECLARATION(CircleCollisionComponent);
+
 	public:
 
 	};

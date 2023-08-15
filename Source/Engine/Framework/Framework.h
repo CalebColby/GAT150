@@ -13,6 +13,6 @@
 #include "Components/EnginePhysicsComponent.h"
 
 #include "Components/ModelRenderComponent.h"
-#include "Components/SpriteComponent.h"
+#include "Components/SpriteRenderComponent.h"
 
 #include "Components/CircleCollisionComponent.h"

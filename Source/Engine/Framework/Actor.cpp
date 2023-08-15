@@ -3,6 +3,8 @@
 
 namespace neu
 {
+	CLASS_REGISTER(Actor);
+
 	bool Actor::Initialize()
 	{
 		for (auto& comp : m_components)
@@ -52,5 +54,12 @@ namespace neu
 	{
 		component->m_owner = this;
 		m_components.push_back(std::move(component));
+	}
+
+	bool Actor::Read(const rapidjson::Value& value)
+	{
+
+
+		return true;
 	}
 }

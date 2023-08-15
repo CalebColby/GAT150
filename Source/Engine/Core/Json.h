@@ -5,6 +5,9 @@
 
 #include <string>
 
+#define READ_DATA(value, data) neu::Json::Read(value, #data, m_##data);
+#define READ_DATA_REQUIRED(value, data) neu::Json::Read(value, #data, m_##data, true);
+
 namespace neu
 {
 	class Json

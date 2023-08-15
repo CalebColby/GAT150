@@ -139,8 +139,9 @@
     <ClCompile Include="Components\CircleCollisionComponent.cpp" />
     <ClCompile Include="Components\EnginePhysicsComponent.cpp" />
     <ClCompile Include="Components\ModelRenderComponent.cpp" />
-    <ClCompile Include="Components\SpriteComponent.cpp" />
+    <ClCompile Include="Components\SpriteRenderComponent.cpp" />
     <ClCompile Include="Emitter.cpp" />
+    <ClCompile Include="Object.cpp" />
     <ClCompile Include="Scene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -152,7 +153,7 @@
     <ClInclude Include="Components\ModelRenderComponent.h" />
     <ClInclude Include="Components\PhysicsComponent.h" />
     <ClInclude Include="Components\RenderComponent.h" />
-    <ClInclude Include="Components\SpriteComponent.h" />
+    <ClInclude Include="Components\SpriteRenderComponent.h" />
     <ClInclude Include="Emitter.h" />
     <ClInclude Include="Factory.h" />
     <ClInclude Include="Framework.h" />

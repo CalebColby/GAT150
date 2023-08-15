@@ -73,12 +73,11 @@ void SpaceGame::Update(float dt)
 			player->m_tag = "Player";
 			player->m_game = this;
 			//create componets
-			auto component = neu::Factory::Instance().Create<neu::SpriteComponent>("SpriteComponent"); 
-			//std::make_unique<neu::SpriteComponent>();
+			auto component = CREATE_CLASS(SpriteRenderComponent);
 			component->m_texture = GET_RESOURCE(neu::Texture, "PlayerShip.png", neu::g_renderer);
 			player->AddComponent(std::move(component));
 
-			auto EPComp = std::make_unique<neu::EnginePhysicsComponent>();
+			auto EPComp = CREATE_CLASS(EnginePhysicsComponent);
 			EPComp->m_damping = 0.9f;
 			player->AddComponent(std::move(EPComp));
 
@@ -103,7 +102,7 @@ void SpaceGame::Update(float dt)
 			enemy->m_game = this;
 
 			//create componets
-			std::unique_ptr<neu::SpriteComponent> component = std::make_unique<neu::SpriteComponent>();
+			std::unique_ptr<neu::SpriteRenderComponent> component = std::make_unique<neu::SpriteRenderComponent>();
 			component->m_texture = GET_RESOURCE(neu::Texture, "EnemyShip.png", neu::g_renderer);
 			enemy->AddComponent(std::move(component));
 
