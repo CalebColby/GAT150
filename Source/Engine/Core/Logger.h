@@ -1,14 +1,17 @@
 #pragma once
 
+#include "Framework/Singleton.h"
+
 #include <string>
 #include <cassert>
 #include <fstream>
+#include <iostream>
 
 #ifdef _DEBUG
-#define INFO_LOG(message)    { if (neu::g_logger.Log(neu::LogLevel::Info, __FILE__, __LINE__))    { neu::g_logger << message << "\n"; } }
-#define WARNING_LOG(message) { if (neu::g_logger.Log(neu::LogLevel::Warning, __FILE__, __LINE__)) { neu::g_logger << message << "\n"; } }
-#define ERROR_LOG(message)   { if (neu::g_logger.Log(neu::LogLevel::Error, __FILE__, __LINE__))   { neu::g_logger << message << "\n"; } }
-#define ASSERT_LOG(condition, message)  { if (!condition && neu::g_logger.Log(neu::LogLevel::Assert, __FILE__, __LINE__))  { neu::g_logger << message << "\n"; } assert(condition); }
+#define INFO_LOG(message)    { if (neu::Logger::Instance().Log(neu::LogLevel::Info, __FILE__, __LINE__))    { neu::Logger::Instance() << message << "\n"; } }
+#define WARNING_LOG(message) { if (neu::Logger::Instance().Log(neu::LogLevel::Warning, __FILE__, __LINE__)) { neu::Logger::Instance() << message << "\n"; } }
+#define ERROR_LOG(message)   { if (neu::Logger::Instance().Log(neu::LogLevel::Error, __FILE__, __LINE__))   { neu::Logger::Instance() << message << "\n"; } }
+#define ASSERT_LOG(condition, message)  { if (!condition && neu::Logger::Instance().Log(neu::LogLevel::Assert, __FILE__, __LINE__))  { neu::Logger::Instance() << message << "\n"; } assert(condition); }
 #else
 #define INFO_LOG(message)    {}
 #define WARNING_LOG(message) {}
@@ -26,10 +29,10 @@ namespace neu
 		Assert
 	};
 
-	class Logger
+	class Logger : public Singleton<Logger>
 	{
 	public:
-		Logger(LogLevel loglevel, std::ostream* ostream, const std::string& filename = "") :
+		Logger(LogLevel loglevel = LogLevel::Info, std::ostream* ostream = &std::cout, const std::string& filename = "log.txt") :
 			m_ostream{ ostream },
 			m_logLevel{ loglevel }
 		{
@@ -48,7 +51,6 @@ namespace neu
 		std::ofstream m_fstream;
 	};
 
-	extern Logger g_logger;
 	template<typename T>
 	inline Logger& Logger::operator<<(T value)
 	{

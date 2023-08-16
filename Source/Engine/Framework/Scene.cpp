@@ -13,7 +13,7 @@ namespace neu
 		{
 			(*iter)->Update(dt);
 			//remove destroyed actors
-			((*iter)->m_destroyed) ? iter = m_actors.erase(iter) : iter++;
+			((*iter)->destroyed) ? iter = m_actors.erase(iter) : iter++;
 		}
 		
 		//check collisions

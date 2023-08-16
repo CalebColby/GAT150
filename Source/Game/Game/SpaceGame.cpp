@@ -70,7 +70,7 @@ void SpaceGame::Update(float dt)
 			//create player
 			std::unique_ptr<Player> player = std::make_unique<Player>(20.0f, neu::Pi, 
 				neu::Transform{ { 400, 300 }, 0, 0.5f });
-			player->m_tag = "Player";
+			player->tag = "Player";
 			player->m_game = this;
 			//create componets
 			auto component = CREATE_CLASS(SpriteRenderComponent);
@@ -98,7 +98,7 @@ void SpaceGame::Update(float dt)
 			m_spawnTimer = 0;
 			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(neu::randomf(75.0f, 150.0f), neu::Pi, 
 				neu::Transform{ { neu::random(neu::g_renderer.GetWidth()), neu::random(neu::g_renderer.GetHeight()) }, neu::randomf(neu::TwoPi), 0.5f});
-			enemy->m_tag = "Enemy";
+			enemy->tag = "Enemy";
 			enemy->m_game = this;
 
 			//create componets

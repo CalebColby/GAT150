@@ -1,8 +1,6 @@
 #include "Logger.h"
 #include "FileIO.h"
 
-#include <iostream>
-
 namespace neu
 {
 	bool Logger::Log(LogLevel logLevel, const std::string& filename, int line)
@@ -31,6 +29,4 @@ namespace neu
 
 		return true;;
 	}
-
-	Logger g_logger(LogLevel::Info, &std::cout, "log.txt");
 }

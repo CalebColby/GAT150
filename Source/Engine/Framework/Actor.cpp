@@ -7,7 +7,7 @@ namespace neu
 
 	bool Actor::Initialize()
 	{
-		for (auto& comp : m_components)
+		for (auto& comp : components)
 		{
 			comp->Initialize();
 		}
@@ -17,20 +17,20 @@ namespace neu
 
 	void Actor::OnDestroy()
 	{
-		for (auto& comp : m_components)
+		for (auto& comp : components)
 		{
 			comp->OnDestroy();
 		}
 	}
 	void Actor::Update(float dt)
 	{
-		if (m_lifespan != -1.0f)
+		if (lifespan != -1.0f)
 		{
-			m_lifespan -= dt;
-			m_destroyed = m_lifespan <= 0;
+			lifespan -= dt;
+			destroyed = lifespan <= 0;
 		}
 
-		for (auto& comp : m_components)
+		for (auto& comp : components)
 		{
 			comp->Update(dt);
 		}
@@ -40,7 +40,7 @@ namespace neu
 	{
 		//m_model->Draw(renderer, m_transform);
 
-		for (auto& comp : m_components)
+		for (auto& comp : components)
 		{
 			RenderComponent* renComp = dynamic_cast<RenderComponent*>(comp.get());
 			if (renComp)
@@ -53,13 +53,31 @@ namespace neu
 	void Actor::AddComponent(std::unique_ptr<Component> component)
 	{
 		component->m_owner = this;
-		m_components.push_back(std::move(component));
+		components.push_back(std::move(component));
 	}
 
-	bool Actor::Read(const rapidjson::Value& value)
+	void Actor::Read(const json_t& value)
 	{
+		Object::Read(value);
+
+		READ_DATA(value, tag);
+		READ_DATA(value, lifespan);
 
 
-		return true;
+		if(HAS_DATA(value, transform)) transform.Read(value);
+
+		if (HAS_DATA(value, components) && GET_DATA(value, components).IsArray())
+		{
+			for (auto& componentValue : GET_DATA(value, components).GetArray())
+			{
+				std::string type;
+				READ_DATA(value, type);
+
+				auto component = CREATE_CLASS_BASE(Component, type);
+				component->Read(value);
+
+				AddComponent(std::move(component));
+			}
+		}
 	}
 }

@@ -10,11 +10,11 @@ namespace neu
 	class Actor : public Object
 	{
 	public:
-		CLASS_DECLARATION(Actor);
+		CLASS_DECLARATION(Actor)
 
 		Actor() = default;
 		Actor(const neu::Transform& transform) :
-			m_transform{ transform }
+			transform{ transform }
 		{}
 
 		virtual bool Initialize() override;
@@ -37,14 +37,17 @@ namespace neu
 		friend class Enemy;
 		friend class Actor;
 
-		neu::Transform m_transform;
-		std::string m_tag;
+
+	public:
+		neu::Transform transform;
+		std::string tag;
+		bool destroyed = false;
 
 	protected:
-		std::vector<std::unique_ptr<Component>> m_components;
+		std::vector<std::unique_ptr<Component>> components;
 
-		bool m_destroyed = false;
-		float m_lifespan = -1.0f;
+		
+		float lifespan = -1.0f;
 
 		class Scene* m_scene = nullptr;
 		class Game* m_game = nullptr;
@@ -53,7 +56,7 @@ namespace neu
 	template<typename T>
 	inline T* Actor::GetComponent()
 	{
-		for (auto& comp : m_components)
+		for (auto& comp : components)
 		{
 			T* result = dynamic_cast<T*>(comp.get());
 			if (result) return result;

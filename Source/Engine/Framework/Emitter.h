@@ -30,7 +30,7 @@ namespace neu
 			Actor{ transform },
 			m_data{ data }
 		{
-			m_lifespan = lifespan;
+			lifespan = lifespan;
 		}
 
 		void Update(float dt);

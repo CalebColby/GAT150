@@ -1,1 +1,6 @@
+INFORMATION: Factory.h(54): Class Creator Registered: SpriteRenderComponent
+INFORMATION: Factory.h(54): Class Creator Registered: ModelRenderComponent
+INFORMATION: Factory.h(54): Class Creator Registered: EnginePhysicsComponent
+INFORMATION: Factory.h(54): Class Creator Registered: CircleCollisionComponent
+INFORMATION: Factory.h(54): Class Creator Registered: Actor
 INFORMATION: main.cpp(42): Initialize Engine

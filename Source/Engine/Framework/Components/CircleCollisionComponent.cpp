@@ -12,7 +12,7 @@ namespace neu
 
     bool CircleCollisionComponent::CheckCollision(CollisionComponent* other)
     {
-        float distance = m_owner->m_transform.position.Distance(other->GetOwner()->m_transform.position);
+        float distance = m_owner->transform.position.Distance(other->GetOwner()->transform.position);
         float radius = m_radius + other->m_radius;
 
         return (distance <= radius);

@@ -2,6 +2,8 @@
 #include "Vector2.h"
 #include "Matrix33.h"
 
+#include "Core/Json.h"
+
 namespace neu
 {
 	class Transform
@@ -12,8 +14,7 @@ namespace neu
 		float scale = 1;
 
 	public:
-		Transform() = default;
-		Transform(const vec2& position, float rotation = 0, float scale = 1) :
+		Transform(const vec2& position = {0, 0}, float rotation = 0, float scale = 1) :
 			position { position },
 			rotation { rotation },
 			scale { scale }
@@ -28,5 +29,9 @@ namespace neu
 
 			return Mx;
 		}
+
+
+		void Read(const json_t& value);
 	};
+
 }
