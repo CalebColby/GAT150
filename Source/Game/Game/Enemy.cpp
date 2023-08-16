@@ -1,6 +1,6 @@
 #include "Enemy.h"
 #include "Player.h"
-#include "Bullet.h"
+#include "WeaponComponent.h"
 #include "SpaceGame.h"
 
 #include "Renderer/Renderer.h"
@@ -44,7 +44,7 @@ void Enemy::Update(float dt)
 			{
 				//create bullet
 				neu::Transform transform{transform.position, transform.rotation, 1};
-				std::unique_ptr<Bullet> bullet = std::make_unique<Bullet>(400.0f, transform);
+				std::unique_ptr<WeaponComponent> bullet = std::make_unique<WeaponComponent>(400.0f, transform);
 				bullet->tag = "EnemyBullet";
 				m_scene->Add(std::move(bullet));
 				m_fireTimer = neu::randomf(m_fireRate - 0.5f, m_fireRate + 0.5f);

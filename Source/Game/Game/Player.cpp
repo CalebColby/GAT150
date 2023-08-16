@@ -51,7 +51,11 @@ void Player::Update(float dt)
 	{
 		//create bullet
 		neu::Transform transform1{transform.position, transform.rotation, 1};
-		std::unique_ptr<WeaponComponent> bullet = std::make_unique<WeaponComponent>( 400.0f, transform1);
+
+		auto bullet = std::make_unique<Actor>(transform1);
+
+		auto weapon = std::make_unique<WeaponComponent>( 400.0f);
+		bullet->AddComponent(std::move(weapon));
 		
 		auto component = std::make_unique<neu::SpriteRenderComponent>();
 		component->m_texture = GET_RESOURCE(neu::Texture, "Bullet.png", neu::g_renderer);
@@ -70,7 +74,7 @@ void Player::Update(float dt)
 		{
 			//create bullet
 			neu::Transform transform2{transform.position, transform.rotation + neu::DegreesToRadians(15), 1};
-			bullet = std::make_unique<WeaponComponent>(400.0f, transform2);
+			weapon = std::make_unique<WeaponComponent>(400.0f, transform2);
 			component = std::make_unique<neu::SpriteRenderComponent>();
 			component->m_texture = GET_RESOURCE(neu::Texture, "Bullet.png", neu::g_renderer);
 			bullet->AddComponent(std::move(component));
