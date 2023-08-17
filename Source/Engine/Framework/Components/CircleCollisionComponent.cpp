@@ -17,4 +17,9 @@ namespace neu
 
         return (distance <= radius);
     }
+
+    void CircleCollisionComponent::Read(const json_t& value)
+    {
+        //
+    }
 }

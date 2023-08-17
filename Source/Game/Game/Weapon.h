@@ -1,28 +1,28 @@
 #pragma once
 #include "Framework/Actor.h"
-#include <Audio/AudioSystem.h>
+#include "Audio/AudioSystem.h"
 
-
-class Rocket : public neu::Actor
+class Weapon : public neu::Actor
 {
 public:
-	Rocket(float speed, const neu::Transform& transform) :
+	
+	Weapon(float speed, const neu::Transform& transform) :
 		Actor{ transform },
-		m_speed{ speed }
+		speed{ speed }
 	{
 		neu::g_audioSystem.PlayOneShot("laser");
-		//m_lifespan = 2.0f;
+		lifespan = 1.0f;
+		
 	}
 
 	bool Initialize() override;
 
 	void Update(float dt) override;
-	void OnCollision(Actor* other) override;
+	void OnCollision(neu::Actor* other);
 	void Read(const neu::json_t& value) override;
 
 	friend class SpaceGame;
-	friend class Player;
 
 private:
-	float m_speed = 0;
+	float speed = 0;
 };

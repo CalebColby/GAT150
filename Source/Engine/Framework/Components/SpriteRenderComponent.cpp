@@ -9,7 +9,7 @@ namespace neu
 
 	bool SpriteRenderComponent::Initialize()
 	{
-		m_texture = GET_RESOURCE(Texture, textureName, g_renderer);
+		if(!textureName.empty()) m_texture = GET_RESOURCE(Texture, textureName, g_renderer);
 
 		return true;
 	}
@@ -26,6 +26,6 @@ namespace neu
 
 	void SpriteRenderComponent::Read(const json_t& value)
 	{
-		READ_DATA(value, textureName);
+		READ_DATA_REQUIRED(value, textureName);
 	}
 }

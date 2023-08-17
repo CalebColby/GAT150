@@ -8,7 +8,7 @@ namespace neu
 
 	bool ModelRenderComponent::Initialize()
 	{
-		m_model = GET_RESOURCE(Model, modelName);
+		if (!modelName.empty()) m_model = GET_RESOURCE(Model, modelName);
 
 		return true;
 	}

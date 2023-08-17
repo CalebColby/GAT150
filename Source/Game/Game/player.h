@@ -14,6 +14,7 @@ public:
 	bool Initialize() override;
 	void Update(float dt) override;
 	void OnCollision(Actor* other) override;
+	void Read(const neu::json_t& value) override;
 
 	void PowerUp();
 

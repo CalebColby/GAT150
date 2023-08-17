@@ -1,5 +1,5 @@
 #include "Rocket.h"
-#include "WeaponComponent.h"
+#include "Weapon.h"
 
 #include "Framework/Framework.h"
 #include "Renderer/Renderer.h"
@@ -37,8 +37,8 @@ void Rocket::OnCollision(Actor* other)
 		for (size_t i = 0; i < 24; i++)
 		{
 			//create bullets
-			neu::Transform transform{transform.position, transform.rotation + neu::DegreesToRadians(15.0f * i), 1.0f};
-			std::unique_ptr<WeaponComponent> bullet = std::make_unique<WeaponComponent>(400.0f, transform);
+			neu::Transform transform{this->transform.position, this->transform.rotation + neu::DegreesToRadians(15.0f * i), 1.0f};
+			std::unique_ptr<Weapon> bullet = std::make_unique<Weapon>(400.0f, transform);
 
 			std::unique_ptr<neu::SpriteRenderComponent> component = std::make_unique<neu::SpriteRenderComponent>();
 			component->m_texture = GET_RESOURCE(neu::Texture, "Bullet.png", neu::g_renderer);
@@ -54,4 +54,9 @@ void Rocket::OnCollision(Actor* other)
 			m_scene->Add(std::move(bullet));
 		}
 	}
+}
+
+void Rocket::Read(const neu::json_t& value)
+{
+	Actor::Read(value);
 }

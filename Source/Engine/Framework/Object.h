@@ -6,7 +6,7 @@
 
 #define CLASS_DECLARATION(classname) \
 	virtual const char* GetClassName() { return #classname; } \
-	void Read(const json_t& value); \
+	virtual void Read(const json_t& value) override; \
 	class Register \
 		{ \
 		public: \
@@ -29,7 +29,17 @@ namespace neu
 		{}
 		virtual ~Object() {	OnDestroy(); }
 
-		CLASS_DECLARATION(Object)
+		virtual const char* GetClassName() {
+			return "Object";
+		} 
+		
+		virtual void Read(const json_t& value); 
+		
+		class Register {
+		public: Register() {
+			Factory::Instance().Register<Object>("Object");
+		}
+		};
 
 		virtual bool Initialize() { return true; }
 		virtual void OnDestroy() {}

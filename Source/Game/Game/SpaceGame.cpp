@@ -38,6 +38,8 @@ bool SpaceGame::Initialize()
 
 	// create scene
 	m_scene = std::make_unique<neu::Scene>();
+	m_scene->Load("scene.json");
+	m_scene->Initialize();
 
 	m_state = eState::Title;
 	return true;
@@ -152,6 +154,7 @@ void SpaceGame::Update(float dt)
 
 void SpaceGame::Draw(neu::Renderer& renderer)
 {
+	m_scene->Draw(renderer);
 	if (m_state == eState::Title)
 	{
 		m_titleText->Draw(renderer, 400, 300);
@@ -164,10 +167,10 @@ void SpaceGame::Draw(neu::Renderer& renderer)
 
 	if (m_state == eState::PlayerDead)
 	{
-		m_livesText->Create(neu::g_renderer, ((m_lives == 1) ? "1 Life Remaining" : std::to_string(m_lives) + " Lives Remaining"), { 1, 1, 1, 1 });
+		m_livesText->Create(neu::g_renderer, ((m_lives == 1) ? "1 Life Remaining" : std::to_string(m_lives) + " Lives Remaining"), 
+			{ 1, 1, 1, 1 });
 		m_livesText->Draw(renderer, 400, 300);
 	}
 
 	m_scoreText->Draw(renderer, 10, 10);
-	m_scene->Draw(renderer);
 }

@@ -15,4 +15,9 @@ namespace neu
 	{
 		m_velocity += force;
 	}
+
+	void EnginePhysicsComponent::Read(const json_t& value)
+	{
+		//
+	}
 }

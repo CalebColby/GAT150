@@ -1,6 +1,6 @@
 #include "Enemy.h"
 #include "Player.h"
-#include "WeaponComponent.h"
+#include "Weapon.h"
 #include "SpaceGame.h"
 
 #include "Renderer/Renderer.h"
@@ -43,8 +43,13 @@ void Enemy::Update(float dt)
 			if (m_fireTimer <= 0)
 			{
 				//create bullet
-				neu::Transform transform{transform.position, transform.rotation, 1};
-				std::unique_ptr<WeaponComponent> bullet = std::make_unique<WeaponComponent>(400.0f, transform);
+				neu::Transform transform{this->transform.position, this->transform.rotation, 1};
+				auto bullet = std::make_unique<Weapon>(400.0f, transform);
+
+				auto sprite = std::make_unique<neu::SpriteRenderComponent>();
+				sprite->m_texture = GET_RESOURCE(neu::Texture, "bullet.png", neu::g_renderer);
+				bullet->AddComponent(std::move(sprite));
+
 				bullet->tag = "EnemyBullet";
 				m_scene->Add(std::move(bullet));
 				m_fireTimer = neu::randomf(m_fireRate - 0.5f, m_fireRate + 0.5f);
@@ -93,4 +98,9 @@ void Enemy::OnCollision(Actor* other)
 		auto emitter = std::make_unique<neu::Emitter>(transform, data, 0.1f);
 		m_scene->Add(std::move(emitter));
 	}
+}
+
+void Enemy::Read(const neu::json_t& value)
+{
+	Actor::Read(value);
 }

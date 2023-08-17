@@ -1,5 +1,5 @@
 #include "Player.h"
-#include "WeaponComponent.h"
+#include "Weapon.h"
 #include "Rocket.h"
 #include "SpaceGame.h"
 
@@ -52,10 +52,7 @@ void Player::Update(float dt)
 		//create bullet
 		neu::Transform transform1{transform.position, transform.rotation, 1};
 
-		auto bullet = std::make_unique<Actor>(transform1);
-
-		auto weapon = std::make_unique<WeaponComponent>( 400.0f);
-		bullet->AddComponent(std::move(weapon));
+		auto bullet = std::make_unique<Weapon>(400.0f, transform1);
 		
 		auto component = std::make_unique<neu::SpriteRenderComponent>();
 		component->m_texture = GET_RESOURCE(neu::Texture, "Bullet.png", neu::g_renderer);
@@ -74,7 +71,7 @@ void Player::Update(float dt)
 		{
 			//create bullet
 			neu::Transform transform2{transform.position, transform.rotation + neu::DegreesToRadians(15), 1};
-			weapon = std::make_unique<WeaponComponent>(400.0f, transform2);
+			bullet = std::make_unique<Weapon>(400.0f, transform2);
 			component = std::make_unique<neu::SpriteRenderComponent>();
 			component->m_texture = GET_RESOURCE(neu::Texture, "Bullet.png", neu::g_renderer);
 			bullet->AddComponent(std::move(component));
@@ -87,7 +84,7 @@ void Player::Update(float dt)
 
 			//create bullet
 			neu::Transform transform3{transform.position, transform.rotation + neu::DegreesToRadians(-15), 1};
-			bullet = std::make_unique<WeaponComponent>(400.0f, transform3);
+			bullet = std::make_unique<Weapon>(400.0f, transform3);
 			component = std::make_unique<neu::SpriteRenderComponent>();
 			component->m_texture = GET_RESOURCE(neu::Texture, "Bullet.png", neu::g_renderer);
 			bullet->AddComponent(std::move(component));
@@ -106,7 +103,7 @@ void Player::Update(float dt)
 		m_game->GetScore() >= 50)
 	{
 		//create rocket
-		neu::Transform transform{transform.position, transform.rotation + neu::DegreesToRadians(180), transform.scale};
+		neu::Transform transform{this->transform.position, this->transform.rotation + neu::DegreesToRadians(180), this->transform.scale}; 
 		std::unique_ptr<Rocket> rocket = std::make_unique<Rocket>(m_speed * 1.5f, transform);
 
 		auto rocketPhysics = std::make_unique<neu::EnginePhysicsComponent>();
@@ -152,6 +149,11 @@ void Player::OnCollision(Actor* other)
 		destroyed = true;
 		dynamic_cast<SpaceGame*>(m_game)->SetState(SpaceGame::eState::PlayerDeadStart);
 	}
+}
+
+void Player::Read(const neu::json_t& value)
+{
+	Actor::Read(value);
 }
 
 void Player::PowerUp()
