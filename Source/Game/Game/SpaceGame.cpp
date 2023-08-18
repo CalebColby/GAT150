@@ -57,10 +57,12 @@ void SpaceGame::Update(float dt)
 		if (neu::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE))
 		{
 			m_state = eState::StartGame;
+			//m_scene->GetActorByName<neu::Actor>("Background")->active = false;
 		}
 		break;
 
 	case SpaceGame::eState::StartGame:
+		//m_scene->GetActorByName<neu::Actor>("Background")->active = true;
 		m_score = 0;
 		m_lives = 3;
 		m_state = eState::StartLevel;

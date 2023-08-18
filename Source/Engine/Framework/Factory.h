@@ -9,6 +9,7 @@
 
 #define CREATE_CLASS(classname) neu::Factory::Instance().Create<neu::classname>(#classname);
 #define CREATE_CLASS_BASE(classbase, classname) neu::Factory::Instance().Create<neu::classbase>(classname);
+#define INSTANTIATE(classbase, classname) neu::Factory::Instance().Create<neu::classbase>(classname);
 
 namespace neu
 {
@@ -31,11 +32,24 @@ namespace neu
 
 	};
 
+	template<typename T>
+	class PrototypeCreator : public CreatorBase
+	{
+	public:
+		PrototypeCreator(std::unique_ptr<T> prototype) : m_prototype{ std::move(prototype) } {}
+		std::unique_ptr<class Object> Create() override { return m_prototype->Clone(); }
+
+	private:
+		std::unique_ptr<T> m_prototype;
+	};
+
 	class Factory : public Singleton<Factory>
 	{
 	public:
 		template<typename T>
 		bool Register(const std::string& key);
+		template<typename T>
+		bool RegisterPrototype(const std::string& key, std::unique_ptr<T> prototype);
 
 		template<typename T>
 		std::unique_ptr<T> Create(const std::string& key);
@@ -54,8 +68,17 @@ namespace neu
 	{
 		INFO_LOG("Class Creator Registered: " << key);
 
-		m_registry[key] =
-			std::make_unique<Creator<T>>();
+		m_registry[key] = std::make_unique<Creator<T>>();
+
+		return true;
+	}
+
+	template<typename T>
+	inline bool Factory::RegisterPrototype(const std::string& key, std::unique_ptr<T> prototype)
+	{
+		INFO_LOG("Prototype Creator Registered: " << key);
+
+		m_registry[key] = std::make_unique<PrototypeCreator<T>>(std::move(prototype));
 
 		return true;
 	}

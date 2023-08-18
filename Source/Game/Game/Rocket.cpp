@@ -6,6 +6,8 @@
 
 bool Rocket::Initialize()
 {
+	Actor::Initialize();
+
 	auto collcomp = GetComponent<neu::CollisionComponent>();
 	auto renComp = GetComponent<neu::RenderComponent>();
 	if (collcomp && renComp)
@@ -38,7 +40,7 @@ void Rocket::OnCollision(Actor* other)
 		{
 			//create bullets
 			neu::Transform transform{this->transform.position, this->transform.rotation + neu::DegreesToRadians(15.0f * i), 1.0f};
-			std::unique_ptr<Weapon> bullet = std::make_unique<Weapon>(400.0f, transform);
+			std::unique_ptr<Weapon> bullet = std::make_unique<Weapon>();
 
 			std::unique_ptr<neu::SpriteRenderComponent> component = std::make_unique<neu::SpriteRenderComponent>();
 			component->m_texture = GET_RESOURCE(neu::Texture, "Bullet.png", neu::g_renderer);

@@ -2,8 +2,12 @@
 #include "Renderer/Renderer.h"
 #include "Framework/Framework.h"
 
+CLASS_REGISTER(Weapon) 
+
 bool Weapon::Initialize()
 {
+	Actor::Initialize();
+
 	auto collcomp = GetComponent<neu::CollisionComponent>();
 	auto renComp = GetComponent<neu::RenderComponent>();
 	if (collcomp && renComp)
@@ -17,7 +21,6 @@ bool Weapon::Initialize()
 
 void Weapon::Update(float dt)
 {
-
 	Actor::Update(dt);
 
 	neu::vec2 forward = neu::vec2{ 0,-1 }.Rotate(transform.rotation);
@@ -33,4 +36,7 @@ void Weapon::OnCollision(neu::Actor* other)
 
 void Weapon::Read(const neu::json_t& value)
 {
+	Actor::Read(value);
+
+	READ_DATA(value, speed);
 }

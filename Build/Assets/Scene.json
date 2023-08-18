@@ -3,6 +3,7 @@
 		{
 			"type": "Actor",
 			"name": "Background",
+			"persistent": true,
 			"transform": {
 				"position": [ 400, 300 ],
 				"scale": 2,
@@ -13,7 +14,28 @@
 					"type": "SpriteRenderComponent",
 					"textureName": "SpaceBackground.jpg"
 				}
-			] 
+			]
+		},
+		{
+			"type": "Weapon",
+			"name": "Weapon",
+			"prototype": true,
+			"lifespan": 2,
+			"transform": {
+				"position": [ 400, 300 ],
+				"scale": 1,
+				"rotation": 0
+			},
+			"speed": 400,
+			"components": [
+				{
+					"type": "SpriteRenderComponent",
+					"textureName": "Bullet.png"
+				},
+				{
+					"type": "CircleCollisionComponent"
+				}
+			]
 		}
 	]
 }

@@ -11,6 +11,8 @@
 
 bool Enemy::Initialize()
 {
+	Actor::Initialize();
+
 	auto collcomp = GetComponent<neu::CollisionComponent>();
 	auto renComp = GetComponent<neu::RenderComponent>();
 	if (collcomp && renComp)
@@ -44,7 +46,7 @@ void Enemy::Update(float dt)
 			{
 				//create bullet
 				neu::Transform transform{this->transform.position, this->transform.rotation, 1};
-				auto bullet = std::make_unique<Weapon>(400.0f, transform);
+				auto bullet = std::make_unique<Weapon>();
 
 				auto sprite = std::make_unique<neu::SpriteRenderComponent>();
 				sprite->m_texture = GET_RESOURCE(neu::Texture, "bullet.png", neu::g_renderer);
@@ -94,7 +96,7 @@ void Enemy::OnCollision(Actor* other)
 		data.damping = 0.5f;
 		data.color = neu::Color{ 1, 0, 0, 1 };
 		//data.color = other->
-		neu::Transform transform{ { transform.position }, 0, 1 };
+		neu::Transform transform{ { this->transform.position }, 0, 1 };
 		auto emitter = std::make_unique<neu::Emitter>(transform, data, 0.1f);
 		m_scene->Add(std::move(emitter));
 	}

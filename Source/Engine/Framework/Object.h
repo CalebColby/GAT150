@@ -6,13 +6,14 @@
 
 #define CLASS_DECLARATION(classname) \
 	virtual const char* GetClassName() { return #classname; } \
-	virtual void Read(const json_t& value) override; \
+	virtual void Read(const neu::json_t& value); \
+	virtual std::unique_ptr<Object> Clone() { return std::move(std::make_unique<classname>(*this));  }	\
 	class Register \
 		{ \
 		public: \
 			Register() \
 			{ \
-				Factory::Instance().Register<classname>(#classname); \
+				neu::Factory::Instance().Register<classname>(#classname); \
 			} \
 		};
 
@@ -29,22 +30,13 @@ namespace neu
 		{}
 		virtual ~Object() {	OnDestroy(); }
 
-		virtual const char* GetClassName() {
-			return "Object";
-		} 
-		
-		virtual void Read(const json_t& value); 
-		
-		class Register {
-		public: Register() {
-			Factory::Instance().Register<Object>("Object");
-		}
-		};
+		CLASS_DECLARATION(Object)
 
 		virtual bool Initialize() { return true; }
 		virtual void OnDestroy() {}
 
-	protected:
+	public:
 		std::string name;
+		bool active = true;
 	};
 }

@@ -81,6 +81,8 @@ int main(int argc, char* argv[])
 		//draw
 		neu::g_renderer.SetColor(0, 0, 0, 0);
 		neu::g_renderer.BeginFrame();
+
+		game->Draw(neu::g_renderer);
 		for (auto& star : stars) 
 		{
 			star.Update(neu::g_Time.GetDeltaTime());
@@ -89,7 +91,6 @@ int main(int argc, char* argv[])
 			neu::g_renderer.DrawPoint(star.m_pos.x, star.m_pos.y);
 		}
 
-		game->Draw(neu::g_renderer);
 		neu::g_particleSystem.Draw(neu::g_renderer);
 		neu::g_renderer.EndFrame();
 	}

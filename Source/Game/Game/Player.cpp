@@ -49,10 +49,16 @@ void Player::Update(float dt)
 	if (neu::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE) &&
 		!neu::g_inputSystem.GetPreviousKeyDown(SDL_SCANCODE_SPACE))
 	{
+		auto bullet = neu::Factory::Instance().Create<Weapon>("Weapon");
+		bullet->transform = { transform.position, transform.rotation, 1 };
+		bullet->Initialize();
+		m_scene->Add(std::move(bullet));
+
+		/*
 		//create bullet
 		neu::Transform transform1{transform.position, transform.rotation, 1};
 
-		auto bullet = std::make_unique<Weapon>(400.0f, transform1);
+		auto bullet = std::make_unique<Weapon>();
 		
 		auto component = std::make_unique<neu::SpriteRenderComponent>();
 		component->m_texture = GET_RESOURCE(neu::Texture, "Bullet.png", neu::g_renderer);
@@ -71,7 +77,7 @@ void Player::Update(float dt)
 		{
 			//create bullet
 			neu::Transform transform2{transform.position, transform.rotation + neu::DegreesToRadians(15), 1};
-			bullet = std::make_unique<Weapon>(400.0f, transform2);
+			bullet = std::make_unique<Weapon>();
 			component = std::make_unique<neu::SpriteRenderComponent>();
 			component->m_texture = GET_RESOURCE(neu::Texture, "Bullet.png", neu::g_renderer);
 			bullet->AddComponent(std::move(component));
@@ -84,7 +90,7 @@ void Player::Update(float dt)
 
 			//create bullet
 			neu::Transform transform3{transform.position, transform.rotation + neu::DegreesToRadians(-15), 1};
-			bullet = std::make_unique<Weapon>(400.0f, transform3);
+			bullet = std::make_unique<Weapon>();
 			component = std::make_unique<neu::SpriteRenderComponent>();
 			component->m_texture = GET_RESOURCE(neu::Texture, "Bullet.png", neu::g_renderer);
 			bullet->AddComponent(std::move(component));
@@ -95,6 +101,7 @@ void Player::Update(float dt)
 			bullet->Initialize();
 			m_scene->Add(std::move(bullet));
 		}
+		*/
 	}
 
 	//fire Rocket
