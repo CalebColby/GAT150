@@ -13,8 +13,8 @@ bool SpaceGame::Initialize()
 	m_scoreText = std::make_unique<neu::Text>(m_font);
 	m_scoreText->Create(neu::g_renderer, "SCORE 0000", neu::Color{ 1, 1, 1, 1 });
 
-	m_titleText = std::make_unique<neu::Text>(m_font);
-	m_titleText->Create(neu::g_renderer, "Star Field", neu::Color{ 1, 1, 1, 1 });
+	//m_titleText = std::make_unique<neu::Text>(m_font);
+	//m_titleText->Create(neu::g_renderer, "Star Field", neu::Color{ 1, 1, 1, 1 });
 
 	m_gameOverText = std::make_unique<neu::Text>(m_font);
 	m_gameOverText->Create(neu::g_renderer, "Game Over", neu::Color{ 1, 1, 1, 1 });
@@ -41,6 +41,7 @@ bool SpaceGame::Initialize()
 	m_scene->Load("scene.json");
 	m_scene->Initialize();
 
+	m_scene->GetActorByName("Title")->active = true;
 	m_state = eState::Title;
 	return true;
 }
@@ -54,8 +55,10 @@ void SpaceGame::Update(float dt)
 	switch (m_state)
 	{
 	case SpaceGame::eState::Title:
+		m_scene->GetActorByName("Title")->active = true;
 		if (neu::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE))
 		{
+			m_scene->GetActorByName("Title")->active = false;
 			m_state = eState::StartGame;
 			//m_scene->GetActorByName<neu::Actor>("Background")->active = false;
 		}
@@ -159,7 +162,7 @@ void SpaceGame::Draw(neu::Renderer& renderer)
 	m_scene->Draw(renderer);
 	if (m_state == eState::Title)
 	{
-		m_titleText->Draw(renderer, 400, 300);
+		//m_titleText->Draw(renderer, 400, 300);
 	}
 
 	if (m_state == eState::GameOver)

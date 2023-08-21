@@ -10,7 +10,7 @@ bool Weapon::Initialize()
 
 	auto collcomp = GetComponent<neu::CollisionComponent>();
 	auto renComp = GetComponent<neu::RenderComponent>();
-	if (collcomp && renComp)
+ 	if (collcomp && renComp)
 	{
 		float scale = transform.scale;
 		collcomp->m_radius = renComp->GetRadius() * scale;

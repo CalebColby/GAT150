@@ -52,6 +52,7 @@ void Player::Update(float dt)
 		auto bullet = neu::Factory::Instance().Create<Weapon>("Weapon");
 		bullet->transform = { transform.position, transform.rotation, 1 };
 		bullet->Initialize();
+		bullet->tag = "PlayerBullet";
 		m_scene->Add(std::move(bullet));
 
 		/*
