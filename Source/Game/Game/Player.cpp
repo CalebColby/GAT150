@@ -153,9 +153,10 @@ void Player::OnCollision(Actor* other)
 
 	if (other->tag == "Enemy")
 	{
-		m_game->SetLives(m_game->GetLives() - 1);
+		//m_game->SetLives(m_game->GetLives() - 1);
 		destroyed = true;
-		dynamic_cast<SpaceGame*>(m_game)->SetState(SpaceGame::eState::PlayerDeadStart);
+		neu::EventManager::Instance().DispatchEvent("OnPlayerDead", 0);
+		//dynamic_cast<SpaceGame*>(m_game)->SetState(SpaceGame::eState::PlayerDeadStart);
 	}
 }
 

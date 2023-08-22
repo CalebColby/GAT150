@@ -69,8 +69,9 @@ void Enemy::OnCollision(Actor* other)
 {
 	if (other->tag == "PlayerBullet" || other->tag == "RocketBullet" || other->tag == "Rocket")
 	{
+		neu::EventManager::Instance().DispatchEvent("OnAddPoints", (other->tag == "PlayerBullet" ? 100 : (other->tag == "Rocket" ? 50 : 200)));
 		destroyed = true;
-		m_game->AddPoints(other->tag == "PlayerBullet" ? 100 : (other->tag == "Rocket" ? 50 : 200)); 
+		//m_game->AddPoints(other->tag == "PlayerBullet" ? 100 : (other->tag == "Rocket" ? 50 : 200)); 
 		//The Rocket Itself gives enough points to refund its cost on hit, but chain kills from the rockets bullet spread give enough points for 4 rockets 
 		//and are what make the rocket worth using if one is going for a high score
 		neu::g_audioSystem.PlayOneShot("hit");

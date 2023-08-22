@@ -43,6 +43,13 @@ bool SpaceGame::Initialize()
 
 	m_scene->GetActorByName("Title")->active = true;
 	m_state = eState::Title;
+
+	//add events
+	EVENT_SUBSCRIBE("OnAddPoints", SpaceGame::OnAddPoints);
+	EVENT_SUBSCRIBE("OnPlayerDead", SpaceGame::OnPlayerDead);
+	//neu::EventManager::Instance().Subscribe("OnAddPoints", this, std::bind(&SpaceGame::OnAddPoints, this, std::placeholders::_1));
+	//neu::EventManager::Instance().Subscribe("OnPlayerDead", this, std::bind(&SpaceGame::OnPlayerDead, this, std::placeholders::_1));
+
 	return true;
 }
 
@@ -178,4 +185,15 @@ void SpaceGame::Draw(neu::Renderer& renderer)
 	}
 
 	m_scoreText->Draw(renderer, 10, 10);
+}
+
+void SpaceGame::OnAddPoints(const neu::Event& event)
+{
+	m_score += std::get<int>(event.data);
+}
+
+void SpaceGame::OnPlayerDead(const neu::Event& event)
+{
+	m_lives--;
+	m_state = eState::PlayerDeadStart;
 }

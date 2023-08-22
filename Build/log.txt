@@ -5,5 +5,6 @@ INFORMATION: Factory.h(69): Class Creator Registered: ModelRenderComponent
 INFORMATION: Factory.h(69): Class Creator Registered: EnginePhysicsComponent
 INFORMATION: Factory.h(69): Class Creator Registered: CircleCollisionComponent
 INFORMATION: Factory.h(69): Class Creator Registered: Actor
-INFORMATION: main.cpp(43): Initialize Engine
+INFORMATION: main.cpp(43): Initialize Engine...
 INFORMATION: Factory.h(79): Prototype Creator Registered: Weapon
+INFORMATION: EventManager.cpp(18): Event subscribed: AddPoints

@@ -16,3 +16,5 @@
 #include "Components/SpriteRenderComponent.h"
 
 #include "Components/CircleCollisionComponent.h"
+
+#include "Event/EventManager.h"

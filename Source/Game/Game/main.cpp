@@ -7,6 +7,7 @@
 
 #include "SpaceGame.h"
 
+#include <functional>
 #include <iostream>
 #include <vector>
 #include <thread>
@@ -39,8 +40,7 @@ public:
 
 int main(int argc, char* argv[])
 {
-
-	INFO_LOG("Initialize Engine");
+	INFO_LOG("Initialize Engine...");
 
 	//Initialize Engine Systems
 	neu::MemoryTracker::Initialize();

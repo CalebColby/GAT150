@@ -1,8 +1,9 @@
 #pragma once
 #include "Framework/Game.h"
+#include "Framework/Event/EventManager.h"
 #include "Renderer/Text.h"
 
-class SpaceGame : public neu::Game
+class SpaceGame : public neu::Game, neu::IEventListener
 {
 public:
 
@@ -26,6 +27,8 @@ public:
 	virtual void Draw(neu::Renderer& renderer) override;
 
 	void SetState(eState state) { m_state = state; }
+	void OnAddPoints(const neu::Event& event);
+	void OnPlayerDead(const neu::Event& event);
 
 private:
 	eState m_state = eState::Title;
