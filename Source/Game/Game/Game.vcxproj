@@ -191,6 +191,9 @@
     <ProjectReference Include="..\..\Engine\Input\Input.vcxproj">
       <Project>{d54bb5fc-ad4c-4b51-8e4d-e0e39830a835}</Project>
     </ProjectReference>
+    <ProjectReference Include="..\..\Engine\Physics\Physics.vcxproj">
+      <Project>{4df35d37-2c71-4966-8066-e85998d2720c}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\..\Engine\Renderer\Renderer.vcxproj">
       <Project>{8662934d-5818-477f-a243-22100159e43d}</Project>
     </ProjectReference>

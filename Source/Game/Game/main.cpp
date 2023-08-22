@@ -3,6 +3,7 @@
 #include "Input/InputSystem.h"
 #include "Audio/AudioSystem.h"
 #include "Framework/Framework.h"
+#include "Physics/PhysicsSystem.h"
 
 #include "SpaceGame.h"
 
@@ -51,6 +52,7 @@ int main(int argc, char* argv[])
 
 	neu::g_inputSystem.Initialize();
 	neu::g_audioSystem.Initialize();
+	neu::PhysicsSystem::Instance().Initialize();
 
 	auto game = make_unique<SpaceGame>();
 	game->Initialize();
