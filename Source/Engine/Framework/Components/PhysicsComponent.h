@@ -8,6 +8,7 @@ namespace neu
 	{
 	public:
 		virtual void ApplyForce(const vec2& force) = 0;
+		virtual void ApplyTorque(const float torque) = 0;
 
 	public:
 		vec2 m_velocity;

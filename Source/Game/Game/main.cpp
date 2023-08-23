@@ -40,7 +40,7 @@ public:
 
 int main(int argc, char* argv[])
 {
-	INFO_LOG("Initialize Engine...");
+	INFO_LOG("Initializing Engine...");
 
 	//Initialize Engine Systems
 	neu::MemoryTracker::Initialize();
@@ -53,9 +53,12 @@ int main(int argc, char* argv[])
 	neu::g_inputSystem.Initialize();
 	neu::g_audioSystem.Initialize();
 	neu::PhysicsSystem::Instance().Initialize();
+	INFO_LOG("Engine Initialized");
 
 	auto game = make_unique<SpaceGame>();
 	game->Initialize();
+
+	INFO_LOG("Game Initialized");
 
 	std::vector<Star> stars;
 	for (size_t i = 0; i < 1000; i++)
@@ -75,6 +78,7 @@ int main(int argc, char* argv[])
 		neu::g_inputSystem.Update();
 		neu::g_audioSystem.Update();
 		neu::g_particleSystem.Update(neu::g_Time.GetDeltaTime());
+		neu::PhysicsSystem::Instance().Update(neu::g_Time.GetDeltaTime());
 		if (neu::g_inputSystem.GetKeyDown(SDL_SCANCODE_ESCAPE)) quit = true;
 
 		//update Game

@@ -6,7 +6,7 @@ namespace neu
 	class EnginePhysicsComponent : public PhysicsComponent
 	{
 	public:
-		CLASS_DECLARATION(EnginePhysicsComponent);
+		CLASS_DECLARATION(EnginePhysicsComponent)
 	public:
 
 
@@ -14,6 +14,7 @@ namespace neu
 		virtual void Update(float dt) override;
 
 		virtual void ApplyForce(const vec2& force) override;
+		virtual void ApplyTorque(const float torque) override { }
 
 	};
 }

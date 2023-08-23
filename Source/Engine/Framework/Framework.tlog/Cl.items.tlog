@@ -1,4 +1,6 @@
 C:\My Projects\GAT150\Source\Engine\Framework\Actor.cpp
+C:\My Projects\GAT150\Source\Engine\Framework\Components\Box2dCollisionComponent.cpp
+C:\My Projects\GAT150\Source\Engine\Framework\Components\Box2dPhysicsComponent.cpp
 C:\My Projects\GAT150\Source\Engine\Framework\Components\CircleCollisionComponent.cpp
 C:\My Projects\GAT150\Source\Engine\Framework\Components\EnginePhysicsComponent.cpp
 C:\My Projects\GAT150\Source\Engine\Framework\Components\ModelRenderComponent.cpp

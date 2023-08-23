@@ -82,8 +82,8 @@ void SpaceGame::Update(float dt)
 		m_scene->RemoveAll();
 		{
 			//create player
-			std::unique_ptr<Player> player = std::make_unique<Player>(20.0f, neu::Pi, 
-				neu::Transform{ { 400, 300 }, 0, 0.5f });
+			/*
+			auto player = std::make_unique<Player>(20.0f, neu::Pi, neu::Transform{ { 400, 300 }, 0, 0.5f });
 			player->tag = "Player";
 			player->m_game = this;
 			//create componets
@@ -98,7 +98,9 @@ void SpaceGame::Update(float dt)
 			auto collComp = std::make_unique<neu::CircleCollisionComponent>();
 			collComp->m_radius = 30.0f;
 			player->AddComponent(std::move(collComp));
+			*/
 
+			auto player = neu::Factory::Instance().Create<Player>("Player");
 			player->Initialize();
 
 			m_scene->Add(std::move(player));

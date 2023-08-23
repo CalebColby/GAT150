@@ -7,6 +7,8 @@
 #include "Framework/Framework.h"
 #include "Renderer/Renderer.h"
 
+CLASS_REGISTER(Player)
+
 bool Player::Initialize()
 {
 	Actor::Initialize();
@@ -31,7 +33,8 @@ void Player::Update(float dt)
 	float rotate = 0;
 	if (neu::g_inputSystem.GetKeyDown(SDL_SCANCODE_A)) rotate = -1;
 	if (neu::g_inputSystem.GetKeyDown(SDL_SCANCODE_D)) rotate = 1;
-	transform.rotation += rotate * m_turnRate * dt;
+	//transform.rotation += rotate * m_turnRate * dt;
+	m_physicsComponent->ApplyTorque(rotate * turnRate * dt);
 
 	float thrust = 0;
 	if (neu::g_inputSystem.GetKeyDown(SDL_SCANCODE_W)) thrust = 1;
@@ -39,7 +42,7 @@ void Player::Update(float dt)
 
 	neu::vec2 forward = neu::vec2{ 0,-1 }.Rotate(transform.rotation);
 
-	m_physicsComponent->ApplyForce(forward * m_speed * thrust);
+	m_physicsComponent->ApplyForce(forward * speed * thrust);
 
 	//m_transform.position += forward * m_speed * thrust * neu::g_Time.GetDeltaTime();
 	transform.position.x = neu::Wrap(transform.position.x, (float)neu::g_renderer.GetWidth());
@@ -112,7 +115,7 @@ void Player::Update(float dt)
 	{
 		//create rocket
 		neu::Transform transform{this->transform.position, this->transform.rotation + neu::DegreesToRadians(180), this->transform.scale}; 
-		std::unique_ptr<Rocket> rocket = std::make_unique<Rocket>(m_speed * 1.5f, transform);
+		std::unique_ptr<Rocket> rocket = std::make_unique<Rocket>(speed * 1.5f, transform);
 
 		auto rocketPhysics = std::make_unique<neu::EnginePhysicsComponent>();
 		rocketPhysics->m_damping = 0.9f;
@@ -163,6 +166,9 @@ void Player::OnCollision(Actor* other)
 void Player::Read(const neu::json_t& value)
 {
 	Actor::Read(value);
+
+	READ_DATA(value, turnRate);
+	READ_DATA(value, speed);
 }
 
 void Player::PowerUp()

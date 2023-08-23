@@ -22,7 +22,7 @@
 			"persistent": true,
 			"transform": {
 				"position": [ 400, 300 ],
-				"scale": 2,
+				"scale": 1.5,
 				"rotation": 0
 			},
 			"components": [
@@ -30,7 +30,36 @@
 					"type": "TextRenderComponent",
 					"fontName": "PaladinFLF.ttf",
 					"fontSize": 24,
-					"text": "Starfield"
+					"text": "Star field"
+				}
+			]
+		},
+		{
+			"type": "Player",
+			"name": "Player",
+			"prototype": true,
+			"tag": "Player",
+			"transform": {
+				"position": [ 400, 300 ],
+				"scale": 0.5,
+				"rotation": 0
+			},
+			"speed": 2,
+			"turnRate": 0.5,
+			"components": [
+				{
+					"type": "SpriteRenderComponent",
+					"textureName": "PlayerShip.png"
+				},
+				{
+					"type": "Box2DPhysicsComponent",
+					"damping": 0.98,
+					"angularDamping": 2,
+					"gravityScale": 0
+				},
+				{
+					"type": "Box2DCollisionComponent",
+					"size": [ 32, 32 ]
 				}
 			]
 		},
@@ -38,7 +67,7 @@
 			"type": "Weapon",
 			"name": "Weapon",
 			"prototype": true,
-			"lifespan": 2,
+			"lifespan": 1,
 			"transform": {
 				"position": [ 400, 300 ],
 				"scale": 1,

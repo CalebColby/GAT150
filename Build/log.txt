@@ -1,10 +1,17 @@
 INFORMATION: Factory.h(69): Class Creator Registered: Weapon
+INFORMATION: Factory.h(69): Class Creator Registered: Player
 INFORMATION: Factory.h(69): Class Creator Registered: TextRenderComponent
 INFORMATION: Factory.h(69): Class Creator Registered: SpriteRenderComponent
 INFORMATION: Factory.h(69): Class Creator Registered: ModelRenderComponent
 INFORMATION: Factory.h(69): Class Creator Registered: EnginePhysicsComponent
 INFORMATION: Factory.h(69): Class Creator Registered: CircleCollisionComponent
+INFORMATION: Factory.h(69): Class Creator Registered: Box2DPhysicsComponent
+INFORMATION: Factory.h(69): Class Creator Registered: Box2DCollisionComponent
 INFORMATION: Factory.h(69): Class Creator Registered: Actor
-INFORMATION: main.cpp(43): Initialize Engine...
+INFORMATION: main.cpp(43): Initializing Engine...
+INFORMATION: main.cpp(56): Engine Initialized
+INFORMATION: Factory.h(79): Prototype Creator Registered: Player
 INFORMATION: Factory.h(79): Prototype Creator Registered: Weapon
-INFORMATION: EventManager.cpp(18): Event subscribed: AddPoints
+INFORMATION: EventManager.cpp(18): Event subscribed: OnAddPoints
+INFORMATION: EventManager.cpp(18): Event subscribed: OnPlayerDead
+INFORMATION: main.cpp(61): Game Initialized
