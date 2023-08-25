@@ -7,19 +7,13 @@
 #include "Framework/Framework.h"
 #include "Input/InputSystem.h"
 
-
+CLASS_REGISTER(Enemy)
 
 bool Enemy::Initialize()
 {
 	Actor::Initialize();
 
-	auto collcomp = GetComponent<neu::CollisionComponent>();
-	auto renComp = GetComponent<neu::RenderComponent>();
-	if (collcomp && renComp)
-	{
-		float scale = transform.scale;
-		collcomp->m_radius = renComp->GetRadius() * scale;
-	}
+	m_physicsComponent = GetComponent<neu::PhysicsComponent>();
 
 	return true;
 }
@@ -30,42 +24,46 @@ void Enemy::Update(float dt)
 
 	auto player = m_scene->GetActor<Player>();
 	neu::vec2 forward = neu::vec2{ 0,-1 }.Rotate(transform.rotation);
+
+
+
 	if (player)
 	{
 		neu::vec2 direction = player->transform.position - transform.position;
 
 		float turnAngle = neu::vec2::SignedAngle(forward, direction.Normalized());
 
-		transform.rotation += turnAngle * dt;
+		if(m_physicsComponent) m_physicsComponent->ApplyTorque(turnAngle * dt);
 
 		float angle = neu::vec2::Angle(forward, direction.Normalized());
+		/*
 		if (angle < neu::DegreesToRadians(30.0f)) 
 		{
+			
 			//fire
 			if (m_fireTimer <= 0)
 			{
 				//create bullet
 				neu::Transform transform{this->transform.position, this->transform.rotation, 1};
-				auto bullet = std::make_unique<Weapon>();
+				auto bullet = INSTANTIATE(Weapon, "Weapon"); //std::make_unique<Weapon>();
 
-				auto sprite = std::make_unique<neu::SpriteRenderComponent>();
-				sprite->m_texture = GET_RESOURCE(neu::Texture, "bullet.png", neu::g_renderer);
-				bullet->AddComponent(std::move(sprite));
+				bullet->transform = transform;
 
 				bullet->tag = "EnemyBullet";
 				m_scene->Add(std::move(bullet));
 				m_fireTimer = neu::randomf(m_fireRate - 0.5f, m_fireRate + 0.5f);
 			}
 		}
+		*/
 	}
-	transform.position += forward * m_speed * neu::g_Time.GetDeltaTime();
+	if(m_physicsComponent) m_physicsComponent->ApplyForce(forward * speed * dt);
 	transform.position.x = neu::Wrap(transform.position.x, (float)neu::g_renderer.GetWidth());
 	transform.position.y = neu::Wrap(transform.position.y, (float)neu::g_renderer.GetHeight());
 
 	m_fireTimer -= dt;
 }
 
-void Enemy::OnCollision(Actor* other)
+void Enemy::OnCollisionEnter(Actor* other)
 {
 	if (other->tag == "PlayerBullet" || other->tag == "RocketBullet" || other->tag == "Rocket")
 	{
@@ -106,4 +104,7 @@ void Enemy::OnCollision(Actor* other)
 void Enemy::Read(const neu::json_t& value)
 {
 	Actor::Read(value);
+
+	READ_DATA(value, turnRate);
+	READ_DATA(value, speed);
 }

@@ -1,13 +1,17 @@
 #pragma once
 #include "Framework/Actor.h"
+#include "Framework/Components/PhysicsComponent.h"
 
 class Enemy : public neu::Actor
 {
 public:
+	CLASS_DECLARATION(Enemy)
+
+	Enemy() = default;
 	Enemy(float speed, float turnRate, const neu::Transform& transform) :
 		Actor{ transform },
-		m_speed{ speed },
-		m_turnRate{ turnRate }
+		speed{ speed },
+		turnRate{ turnRate }
 	{
 		m_fireRate = neu::randomf(2.5f, 3.5f);
 		m_fireTimer = m_fireRate;
@@ -16,15 +20,16 @@ public:
 	bool Initialize() override;
 
 	void Update(float dt) override;
-	void OnCollision(Actor* other) override;
-	void Read(const neu::json_t& value) override;
+	void OnCollisionEnter(Actor* other) override;
 
 	friend class SpaceGame;
 
 private:
-	float m_speed = 0;
-	float m_turnRate = 0;
+	float speed = 0;
+	float turnRate = 0;
 
 	float m_fireRate = 0;
 	float m_fireTimer = 0;
+
+	neu::PhysicsComponent* m_physicsComponent;
 };

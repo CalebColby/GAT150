@@ -9,7 +9,7 @@
 
 bool SpaceGame::Initialize()
 {// create font / text objects
-	m_font = GET_RESOURCE(neu::Font, "PaladinFLF.ttf", 24);
+	m_font = GET_RESOURCE(neu::Font, "SpaceGame/Fonts/PaladinFLF.ttf", 24);
 	m_scoreText = std::make_unique<neu::Text>(m_font);
 	m_scoreText->Create(neu::g_renderer, "SCORE 0000", neu::Color{ 1, 1, 1, 1 });
 
@@ -24,21 +24,21 @@ bool SpaceGame::Initialize()
 
 	//Load HighScore
 	std::string buffer;
-	neu::readFile("HighScore.txt", buffer);
+	neu::readFile("SpaceGame/HighScore.txt", buffer);
 	m_highScore = static_cast<size_t>(std::stoi(buffer));
 
 
 	// load audio
-	neu::g_audioSystem.AddAudio("hit", "Explosion.wav");
-	neu::g_audioSystem.AddAudio("laser", "Laser_Fire.wav");
-	neu::g_audioSystem.AddAudio("PowerUp", "Powerup.wav");
-	neu::g_audioSystem.AddAudio("music", "Music.mp3");
+	neu::g_audioSystem.AddAudio("hit", "SpaceGame/Audio/Explosion.wav");
+	neu::g_audioSystem.AddAudio("laser", "SpaceGame/Audio/Laser_Fire.wav");
+	neu::g_audioSystem.AddAudio("PowerUp", "SpaceGame/Audio/Powerup.wav");
+	neu::g_audioSystem.AddAudio("music", "SpaceGame/Audio/Music.mp3");
 
 	neu::g_audioSystem.PlayOneShot("music", true);
 
 	// create scene
 	m_scene = std::make_unique<neu::Scene>();
-	m_scene->Load("scene.json");
+	m_scene->Load("SpaceGame/Scenes/SpaceScene.json");
 	m_scene->Initialize();
 
 	m_scene->GetActorByName("Title")->active = true;
@@ -67,12 +67,10 @@ void SpaceGame::Update(float dt)
 		{
 			m_scene->GetActorByName("Title")->active = false;
 			m_state = eState::StartGame;
-			//m_scene->GetActorByName<neu::Actor>("Background")->active = false;
 		}
 		break;
 
 	case SpaceGame::eState::StartGame:
-		//m_scene->GetActorByName<neu::Actor>("Background")->active = true;
 		m_score = 0;
 		m_lives = 3;
 		m_state = eState::StartLevel;
@@ -81,28 +79,8 @@ void SpaceGame::Update(float dt)
 	case SpaceGame::eState::StartLevel:
 		m_scene->RemoveAll();
 		{
-			//create player
-			/*
-			auto player = std::make_unique<Player>(20.0f, neu::Pi, neu::Transform{ { 400, 300 }, 0, 0.5f });
-			player->tag = "Player";
-			player->m_game = this;
-			//create componets
-			auto component = CREATE_CLASS(SpriteRenderComponent);
-			component->m_texture = GET_RESOURCE(neu::Texture, "PlayerShip.png", neu::g_renderer);
-			player->AddComponent(std::move(component));
-
-			auto EPComp = CREATE_CLASS(EnginePhysicsComponent);
-			EPComp->m_damping = 0.9f;
-			player->AddComponent(std::move(EPComp));
-
-			auto collComp = std::make_unique<neu::CircleCollisionComponent>();
-			collComp->m_radius = 30.0f;
-			player->AddComponent(std::move(collComp));
-			*/
-
-			auto player = neu::Factory::Instance().Create<Player>("Player");
+			auto player = INSTANTIATE(Player, "Player");
 			player->Initialize();
-
 			m_scene->Add(std::move(player));
 		}
 		m_state = eState::Game;
@@ -112,19 +90,14 @@ void SpaceGame::Update(float dt)
 		if (m_spawnTimer >= m_spawnTime)
 		{
 			m_spawnTimer = 0;
-			std::unique_ptr<Enemy> enemy = std::make_unique<Enemy>(neu::randomf(75.0f, 150.0f), neu::Pi, 
-				neu::Transform{ { neu::random(neu::g_renderer.GetWidth()), neu::random(neu::g_renderer.GetHeight()) }, neu::randomf(neu::TwoPi), 0.5f});
+			//auto enemy = std::make_unique<Enemy>(neu::randomf(75.0f, 150.0f), neu::Pi, neu::Transform{ { neu::random(neu::g_renderer.GetWidth()), neu::random(neu::g_renderer.GetHeight()) }, neu::randomf(neu::TwoPi), 0.5f});
+			auto enemy = INSTANTIATE(Enemy, "Enemy");
+
+			enemy->transform.position = { neu::random(neu::g_renderer.GetWidth()), neu::random(neu::g_renderer.GetHeight()) };
+			enemy->transform.rotation = neu::randomf(neu::TwoPi);
+
 			enemy->tag = "Enemy";
 			enemy->m_game = this;
-
-			//create componets
-			std::unique_ptr<neu::SpriteRenderComponent> component = std::make_unique<neu::SpriteRenderComponent>();
-			component->m_texture = GET_RESOURCE(neu::Texture, "EnemyShip.png", neu::g_renderer);
-			enemy->AddComponent(std::move(component));
-
-			auto collComp = std::make_unique<neu::CircleCollisionComponent>();
-			collComp->m_radius = 30.0f;
-			enemy->AddComponent(std::move(collComp));
 
 			enemy->Initialize();
 
@@ -161,8 +134,8 @@ void SpaceGame::Update(float dt)
 		break;
 	}
 	
-	m_scoreText->Create(neu::g_renderer, ((m_state == eState::Title) ? "High Score: " + std::to_string(m_highScore) : "Score: " + std::to_string(m_score)), 
-		{1, 1, 1, 1});
+	//m_scoreText->Create(neu::g_renderer, ((m_state == eState::Title) ? "High Score: " + std::to_string(m_highScore) : "Score: " + std::to_string(m_score)), 
+		//{1, 1, 1, 1});
 	m_scene->Update(dt);
 }
 

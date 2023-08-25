@@ -15,7 +15,7 @@ bool Weapon::Initialize()
 		float scale = transform.scale;
 		collcomp->m_radius = renComp->GetRadius() * scale;
 	}
-
+	m_physicsComponent = GetComponent<neu::PhysicsComponent>();
 	return true;
 }
 
@@ -24,12 +24,14 @@ void Weapon::Update(float dt)
 	Actor::Update(dt);
 
 	neu::vec2 forward = neu::vec2{ 0,-1 }.Rotate(transform.rotation);
-	transform.position += forward * speed * neu::g_Time.GetDeltaTime();
+	//transform.position += forward * speed * neu::g_Time.GetDeltaTime();
+	if(m_physicsComponent) m_physicsComponent->ApplyForce(forward * speed * dt);
+
 	transform.position.x = neu::Wrap(transform.position.x, (float)neu::g_renderer.GetWidth());
 	transform.position.y = neu::Wrap(transform.position.y, (float)neu::g_renderer.GetHeight());
 }
 
-void Weapon::OnCollision(neu::Actor* other)
+void Weapon::OnCollisionEnter(neu::Actor* other)
 {
 	destroyed = true;
 }

@@ -4,6 +4,8 @@
 #include "Framework/Framework.h"
 #include "Renderer/Renderer.h"
 
+CLASS_REGISTER(Rocket)
+
 bool Rocket::Initialize()
 {
 	Actor::Initialize();
@@ -31,7 +33,7 @@ void Rocket::Update(float dt)
 	transform.position.y = neu::Wrap(transform.position.y, (float)neu::g_renderer.GetHeight());
 }
 
-void Rocket::OnCollision(Actor* other)
+void Rocket::OnCollisionEnter(Actor* other)
 {
 	if (other->tag == "Enemy")
 	{

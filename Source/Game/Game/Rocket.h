@@ -6,6 +6,9 @@
 class Rocket : public neu::Actor
 {
 public:
+	CLASS_DECLARATION(Rocket)
+
+	Rocket() = default;
 	Rocket(float speed, const neu::Transform& transform) :
 		Actor{ transform },
 		m_speed{ speed }
@@ -17,8 +20,7 @@ public:
 	bool Initialize() override;
 
 	void Update(float dt) override;
-	void OnCollision(Actor* other) override;
-	void Read(const neu::json_t& value) override;
+	void OnCollisionEnter(Actor* other) override;
 
 	friend class SpaceGame;
 	friend class Player;

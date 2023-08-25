@@ -7,9 +7,9 @@
 #include <map>
 #include <string>
 
-#define CREATE_CLASS(classname) neu::Factory::Instance().Create<neu::classname>(#classname);
-#define CREATE_CLASS_BASE(classbase, classname) neu::Factory::Instance().Create<neu::classbase>(classname);
-#define INSTANTIATE(classbase, classname) neu::Factory::Instance().Create<neu::classbase>(classname);
+#define CREATE_CLASS(classname) neu::Factory::Instance().Create<neu::classname>(#classname)
+#define CREATE_CLASS_BASE(classbase, classname) neu::Factory::Instance().Create<neu::classbase>(classname)
+#define INSTANTIATE(classbase, classname) neu::Factory::Instance().Create<classbase>(classname)
 
 namespace neu
 {

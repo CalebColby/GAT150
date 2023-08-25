@@ -1,0 +1,22 @@
+{
+  "actors": [
+    {
+      "type": "Actor",
+      "name": "Background",
+      "persistent": true,
+      "transform": {
+        "position": [ 400, 300 ],
+        "scale": 1,
+        "rotation": 0
+      },
+      "components": [
+        {
+          "type": "SpriteRenderComponent",
+          "textureName": "Backgrounds/PlatformerBackground.png"
+        }
+      ]
+    }
+
+
+  ]
+}

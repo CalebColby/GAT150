@@ -29,7 +29,8 @@ namespace neu
 		template<typename T = Component>
 		T* GetComponent();
 
-		virtual void OnCollision(Actor* other) {}
+		virtual void OnCollisionEnter(Actor* other) {}
+		virtual void OnCollisionExit(Actor* other) {}
 
 
 		friend class Scene;
@@ -49,6 +50,7 @@ namespace neu
 	protected:
 		std::vector<std::unique_ptr<Component>> components;
 
+		
 		
 		float lifespan = -1.0f;
 

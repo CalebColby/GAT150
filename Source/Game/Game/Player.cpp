@@ -52,12 +52,27 @@ void Player::Update(float dt)
 	if (neu::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE) &&
 		!neu::g_inputSystem.GetPreviousKeyDown(SDL_SCANCODE_SPACE))
 	{
-		auto bullet = neu::Factory::Instance().Create<Weapon>("Weapon");
+		//auto bullet = neu::Factory::Instance().Create<Weapon>("Weapon");
+
+		auto bullet = INSTANTIATE(Weapon, "Weapon");
 		bullet->transform = { transform.position, transform.rotation, 1 };
 		bullet->Initialize();
 		bullet->tag = "PlayerBullet";
 		m_scene->Add(std::move(bullet));
 
+		if (m_poweredUp) {
+			bullet = INSTANTIATE(Weapon, "Weapon");
+			bullet->transform = { transform.position, transform.rotation + neu::DegreesToRadians(15), 1};
+			bullet->Initialize(); 
+			bullet->tag = "PlayerBullet"; 
+			m_scene->Add(std::move(bullet)); 
+
+			bullet = INSTANTIATE(Weapon, "Weapon");
+			bullet->transform = { transform.position, transform.rotation + neu::DegreesToRadians(-15), 1 }; 
+			bullet->Initialize(); 
+			bullet->tag = "PlayerBullet"; 
+			m_scene->Add(std::move(bullet)); 
+		}
 		/*
 		//create bullet
 		neu::Transform transform1{transform.position, transform.rotation, 1};
@@ -115,8 +130,10 @@ void Player::Update(float dt)
 	{
 		//create rocket
 		neu::Transform transform{this->transform.position, this->transform.rotation + neu::DegreesToRadians(180), this->transform.scale}; 
-		std::unique_ptr<Rocket> rocket = std::make_unique<Rocket>(speed * 1.5f, transform);
+		auto rocket = INSTANTIATE(Rocket, "Rocket"); //std::make_unique<Rocket>(speed * 1.5f, transform);
 
+		rocket->transform = transform;
+		/*
 		auto rocketPhysics = std::make_unique<neu::EnginePhysicsComponent>();
 		rocketPhysics->m_damping = 0.9f;
 		rocket->AddComponent(std::move(rocketPhysics));
@@ -128,13 +145,14 @@ void Player::Update(float dt)
 		auto collComp = std::make_unique<neu::CircleCollisionComponent>();
 		collComp->m_radius = 30.0f;
 		rocket->AddComponent(std::move(collComp));
+		*/
 
 		rocket->tag = "Rocket";
 		rocket->m_scene = m_scene;
 		rocket->Initialize();
 		m_scene->Add(std::move(rocket));
 		//firing Rockets costs Score
-		m_game->AddPoints(-50);
+		EVENT_DISPATCH("OnAddPoints", -50);
 	}
 
 	neu::g_Time.SetTimeScale(neu::g_inputSystem.GetKeyDown(SDL_SCANCODE_T) ? 0.5f : 1.0f);
@@ -147,7 +165,7 @@ void Player::Update(float dt)
 	}
 }
 
-void Player::OnCollision(Actor* other)
+void Player::OnCollisionEnter(Actor* other)
 {
 	if (other->tag == "EnemyBullet")
 	{
