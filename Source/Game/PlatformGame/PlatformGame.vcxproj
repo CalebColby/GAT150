@@ -162,7 +162,7 @@
     <ClInclude Include="PlatformGame.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\..\Build\Assets\Scenes\PlatformScene.json" />
+    <None Include="..\..\..\Build\Assets\PlatformGame\Scenes\PlatformScene.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

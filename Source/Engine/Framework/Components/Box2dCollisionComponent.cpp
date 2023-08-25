@@ -1,6 +1,7 @@
 #include "Box2DCollisionComponent.h"
 #include "Box2DPhysicsComponent.h"
 #include "Framework/Actor.h"
+#include "Framework/Components/SpriteRenderComponent.h"
 
 namespace neu
 {
@@ -11,6 +12,15 @@ namespace neu
 		auto component = m_owner->GetComponent<Box2DPhysicsComponent>();
 		if (component)
 		{
+			if (data.size.x == 0 && data.size.y == 0) 
+			{
+				auto SpriteComponent = m_owner->GetComponent<SpriteRenderComponent>();
+				if (SpriteComponent)
+				{
+					data.size = vec2{ SpriteComponent->source.w, SpriteComponent->source.y };
+				}
+			}
+
 			data.size = data.size * scaleOffset * m_owner->transform.scale;
 
 			if (component->m_body->GetType() == b2_staticBody)

@@ -67,7 +67,7 @@ namespace neu
 		SDL_RenderDrawPointF(m_renderer, x, y);
 	}
 
-	void Renderer::DrawTexture(Texture* texture, const Transform& transform)
+	void Renderer::DrawTexture(Texture* texture, const Transform& transform, bool horizontalFlip, bool verticalFlip) 
 	{
 		mat3 mx = transform.GetMatrix();
 
@@ -81,7 +81,30 @@ namespace neu
 		dest.w = (int)size.x;
 		dest.h = (int)size.y;
 		// https://wiki.libsdl.org/SDL2/SDL_RenderCopyEx
-		SDL_RenderCopyEx(m_renderer, texture->m_texture, nullptr, &dest, (double)angle, nullptr, SDL_FLIP_NONE);
+
+		if (horizontalFlip) SDL_RenderCopyEx(m_renderer, texture->m_texture, nullptr, &dest, (double)angle, nullptr, SDL_FLIP_HORIZONTAL);
+		else if (verticalFlip) SDL_RenderCopyEx(m_renderer, texture->m_texture, nullptr, &dest, (double)angle, nullptr, SDL_FLIP_VERTICAL);
+		else SDL_RenderCopyEx(m_renderer, texture->m_texture, nullptr, &dest, (double)angle, nullptr, SDL_FLIP_NONE);
+	}
+
+	void Renderer::DrawTexture(Texture* texture, const Rect& source, const Transform& transform, bool horizontalFlip, bool verticalFlip)
+	{
+		mat3 mx = transform.GetMatrix();
+
+		vec2 size = vec2{source.w, source.h} * mx.GetScale();
+		vec2 position = mx.GetTranslation();
+		float angle = -RadiansToDegrees(mx.GetRotation());
+
+		SDL_Rect dest;
+		dest.x = (int)(position.x - (size.x * 0.5f));
+		dest.y = (int)(position.y - (size.y * 0.5f));
+		dest.w = (int)size.x;
+		dest.h = (int)size.y;
+		// https://wiki.libsdl.org/SDL2/SDL_RenderCopyEx
+
+		if (horizontalFlip) SDL_RenderCopyEx(m_renderer, texture->m_texture, (SDL_Rect*)&source, &dest, (double)angle, nullptr, SDL_FLIP_HORIZONTAL);
+		else if (verticalFlip) SDL_RenderCopyEx(m_renderer, texture->m_texture, (SDL_Rect*)&source, &dest, (double)angle, nullptr, SDL_FLIP_VERTICAL);
+		else SDL_RenderCopyEx(m_renderer, texture->m_texture, (SDL_Rect*)&source, &dest, (double)angle, nullptr, SDL_FLIP_NONE);
 	}
 
 	Renderer g_renderer;

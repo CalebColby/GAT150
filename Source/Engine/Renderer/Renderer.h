@@ -29,7 +29,8 @@ namespace neu
 		void DrawLine(float x1, float y1, float x2, float y2);
 		void DrawPoint(int x, int y);
 		void DrawPoint(float x, float y);
-		void DrawTexture(class Texture* texture, const Transform& transform);
+		void DrawTexture(class Texture* texture, const Transform& transform, bool horizontalFlip = false, bool verticalFlip = false);
+		void DrawTexture(class Texture* texture, const Rect& source, const Transform& transform, bool horizontalFlip = false, bool verticalFlip = false);
 
 		int GetWidth() const { return m_width; };
 		int GetHeight() const { return m_height; };

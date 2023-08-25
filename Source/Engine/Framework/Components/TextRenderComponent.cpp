@@ -38,7 +38,7 @@ namespace neu
 		{
 			m_changed = false;
 			// create text using text string and color
-			m_text->Create(renderer, text, { 1, 1, 1, 1 });
+			m_text->Create(renderer, text, color);
 		}
 		// draw text
 		m_text->Draw(renderer, m_owner->transform);
@@ -63,6 +63,7 @@ namespace neu
 		READ_DATA(value, fontName);
 		//<read data font size>
 		READ_DATA(value, fontSize);
+		READ_DATA(value, color);
 	}
 }
 

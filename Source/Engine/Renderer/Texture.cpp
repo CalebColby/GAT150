@@ -39,6 +39,7 @@ namespace neu
 
 		return true;
 	}
+
 	vec2 Texture::GetSize()
 	{
 		ASSERT_LOG(m_texture, "Texture doesn't Exist")

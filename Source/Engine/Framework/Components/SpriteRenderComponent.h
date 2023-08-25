@@ -2,6 +2,7 @@
 #include "RenderComponent.h"
 #include "Renderer/Texture.h"
 #include "Framework/Factory.h"
+#include "Core/Math/Rect.h"
 
 namespace neu
 {
@@ -18,8 +19,10 @@ namespace neu
 		CLASS_DECLARATION(SpriteRenderComponent)
 
 	public:
+		Rect source;
 		std::string textureName;
 		res_t<Texture> m_texture;
+
 
 	};
 }

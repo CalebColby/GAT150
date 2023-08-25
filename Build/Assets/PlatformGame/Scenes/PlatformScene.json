@@ -15,8 +15,51 @@
           "textureName": "Backgrounds/PlatformerBackground.png"
         }
       ]
+    },
+    {
+      "type": "Actor",
+      "name": "Coin",
+      "persistent": true,
+      "transform": {
+        "position": [ 400, 300 ],
+        "scale": 1,
+        "rotation": 0
+      },
+      "components": [
+        {
+          "type": "SpriteAnimRenderComponent",
+          "defaultSequence": "idle",
+          "sequences": [
+            {
+              "name": "idle",
+              "fps": 12,
+              "numColumns": 8,
+              "numRows": 1,
+              "startFrame": 1,
+              "endFrame": 8,
+              "textureName": "Sprites/coin.png"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Actor",
+      "name": "Title",
+      "transform": {
+        "position": [ 400, 100 ],
+        "scale": 1,
+        "rotation": 0
+      },
+      "components": [
+        {
+          "type": "TextRenderComponent",
+          "fontName": "Fonts/PaladinFLF.ttf",
+          "text": "Quest of the Knight",
+          "fontSize": 32,
+          "color": [ 1, 0, 0, 1 ]
+        }
+      ]
     }
-
-
   ]
 }

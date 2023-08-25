@@ -24,6 +24,7 @@ namespace neu
 	private:
 
 		bool m_changed = true;
+		Color color;
 		std::unique_ptr<Text> m_text;
 	};
 }

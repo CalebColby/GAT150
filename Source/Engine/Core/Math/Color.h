@@ -16,6 +16,10 @@ namespace neu
 		Color(float r, float g, float b, float a = 1) : r{ r }, g{ g }, b{ b }, a{ a } {}
 
 		static uint8_t ToInt(float c) { return static_cast<uint8_t>(Clamp(c, 0.0f, 1.0f) * 255.0f); }
+		static Color White() { return {1,1,1,1}; }
+
+		float  operator [] (size_t index) const { return (&r)[index]; }
+		float& operator [] (size_t index) { return (&r)[index]; }
 	};
 
 	inline std::istream& operator >> (std::istream& stream, Color& color)
@@ -38,4 +42,6 @@ namespace neu
 
 		return stream;
 	}
+
+
 }

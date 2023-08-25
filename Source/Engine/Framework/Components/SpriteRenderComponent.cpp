@@ -10,6 +10,16 @@ namespace neu
 	bool SpriteRenderComponent::Initialize()
 	{
 		if(!textureName.empty()) m_texture = GET_RESOURCE(Texture, textureName, g_renderer);
+		if (source.w == 0 && source.h == 0)
+		{
+			if (m_texture)
+			{
+				source.x = 0;
+				source.y = 0;
+				source.w = m_texture->GetSize().x;
+				source.h = m_texture->GetSize().y;
+			}
+		}
 
 		return true;
 	}
@@ -21,11 +31,12 @@ namespace neu
 
 	void SpriteRenderComponent::Draw(Renderer& renderer)
 	{
-		renderer.DrawTexture(m_texture.get(), m_owner->transform);
+		renderer.DrawTexture(m_texture.get(), source, m_owner->transform);
 	}
 
 	void SpriteRenderComponent::Read(const json_t& value)
 	{
-		READ_DATA_REQUIRED(value, textureName);
+		READ_DATA(value, textureName);
+		READ_DATA(value, source);
 	}
 }

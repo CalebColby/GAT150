@@ -24,7 +24,7 @@ int main(int argc, char* argv[])
 	//Initialize Engine Systems
 	neu::MemoryTracker::Initialize();
 	neu::seedRandom((unsigned int)time(nullptr));
-	neu::setFilePath("Assets");
+	neu::setFilePath("Assets/PlatformGame");
 
 	neu::g_renderer.Initialize();
 	neu::g_renderer.CreateWindow("GAT150", 800, 600);
