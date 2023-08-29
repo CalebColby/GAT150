@@ -13,7 +13,6 @@ bool Enemy::Initialize()
 
 	m_physicsComponent = GetComponent<neu::PhysicsComponent>();
 
-
 	return true;
 }
 
@@ -26,9 +25,7 @@ void Enemy::Update(float dt)
 	if (player)
 	{
 		neu::vec2 direction = player->transform.position - transform.position;
-		direction.Normalize();
-
-		m_physicsComponent->ApplyForce(direction * speed);
+		m_physicsComponent->ApplyForce(direction.Normalized() * speed);
 	}
 }
 
@@ -36,7 +33,7 @@ void Enemy::OnCollisionEnter(Actor* other)
 {
 	if (other->tag == "Player")
 	{
-		destroyed = true;
+		//destroyed = true;
 	}
 }
 

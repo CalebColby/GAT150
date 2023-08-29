@@ -1,6 +1,7 @@
 #pragma once
 #include "Framework/Actor.h"
 #include "Framework/Components/PhysicsComponent.h"
+#include "Framework/Components/SpriteAnimRenderComponent.h"
 
 class Player : public neu::Actor
 {
@@ -30,5 +31,6 @@ private:
 	bool m_poweredUp = false;
 
 	neu::PhysicsComponent* m_physicsComponent = nullptr;
+	neu::SpriteAnimRenderComponent* m_animComponent = nullptr;
 };
 

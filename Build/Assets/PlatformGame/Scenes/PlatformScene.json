@@ -84,7 +84,7 @@
       "name": "Player",
       "tag": "Player",
       "persistent": true,
-      "speed": 300,
+      "speed": 120,
       "jumpForce": 5,
       "transform": {
         "position": [ 440, 300 ],
@@ -95,6 +95,7 @@
         {
           "type": "SpriteAnimRenderComponent",
           "defaultSequenceName": "idle",
+          "origin": [0.5, 0.75],
           "sequences": [
             {
               "name": "idle",
@@ -123,7 +124,8 @@
           "constrainAngle": true
         },
         {
-          "type": "Box2DCollisionComponent"
+          "type": "Box2DCollisionComponent",
+          "scaleOffset": [0.5, 0.5]
         }
       ]
     },
@@ -131,8 +133,7 @@
       "type": "Enemy",
       "name": "Enemy",
       "tag": "Enemy",
-      "persistent": true,
-      "speed": 300,
+      "speed": 20,
       "jumpForce": 5,
       "transform": {
         "position": [ 100, 300 ],
@@ -157,12 +158,13 @@
         },
         {
           "type": "Box2DPhysicsComponent",
-          "damping": 0.9,
-          "gravityScale": 0,
+          "damping": 0.99,
+          "gravityScale": 0.2,
           "constrainAngle": true
         },
         {
-          "type": "Box2DCollisionComponent"
+          "type": "Box2DCollisionComponent",
+          "isTrigger": true
         }
       ]
     },

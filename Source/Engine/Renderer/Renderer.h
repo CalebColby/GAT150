@@ -31,6 +31,7 @@ namespace neu
 		void DrawPoint(float x, float y);
 		void DrawTexture(class Texture* texture, const Transform& transform, bool horizontalFlip = false, bool verticalFlip = false);
 		void DrawTexture(class Texture* texture, const Rect& source, const Transform& transform, bool horizontalFlip = false, bool verticalFlip = false);
+		void DrawTexture(class Texture* texture, const Rect& source, const Transform& transform, bool horizontalFlip, const vec2& origin);
 
 		int GetWidth() const { return m_width; };
 		int GetHeight() const { return m_height; };

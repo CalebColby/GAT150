@@ -14,9 +14,11 @@
 #include "Components/Box2dPhysicsComponent.h"
 
 #include "Components/ModelRenderComponent.h"
-#include "Components/SpriteRenderComponent.h"
+#include "Components/SpriteAnimRenderComponent.h"
 
 #include "Components/CircleCollisionComponent.h"
 #include "Components/Box2dCollisionComponent.h"
+
+#include "Components/TilemapComponent.h"
 
 #include "Event/EventManager.h"

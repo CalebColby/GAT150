@@ -11,7 +11,7 @@ bool Player::Initialize()
 	Actor::Initialize();
 
 	m_physicsComponent = GetComponent<neu::PhysicsComponent>();
-	
+	m_animComponent = GetComponent<neu::SpriteAnimRenderComponent>();
 
 	return true;
 }
@@ -38,14 +38,29 @@ void Player::Update(float dt)
 		neu::vec2 up{ 0, -1 };
 		m_physicsComponent->SetVelocity(up * jumpForce);
 	}
+
+	//Animation
+	neu::vec2 velocity = m_physicsComponent->m_velocity;
+	if (std::fabs(velocity.x) > 0.2f)
+	{
+		if(dir != 0) m_animComponent->flipH = (dir > 0);
+		m_animComponent->SetSequence("run");
+	}
+	else 
+	{
+		m_animComponent->SetSequence("idle");
+	}
+
+	
+	
 }
 
 void Player::OnCollisionEnter(Actor* other)
 {
 	if (other->tag == "Enemy")
 	{
-		destroyed = true;
-		EVENT_DISPATCH("OnPlayerDead", 0);
+		//destroyed = true;
+		//EVENT_DISPATCH("OnPlayerDead", 0);
 	}
 
 	if (other->tag == "Ground") groundCount++;

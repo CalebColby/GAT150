@@ -107,5 +107,26 @@ namespace neu
 		else SDL_RenderCopyEx(m_renderer, texture->m_texture, (SDL_Rect*)&source, &dest, (double)angle, nullptr, SDL_FLIP_NONE);
 	}
 
+	void Renderer::DrawTexture(Texture* texture, const Rect& source, const Transform& transform, bool horizontalFlip, const vec2& origin)
+	{
+		mat3 mx = transform.GetMatrix();
+
+		vec2 size = vec2{ source.w, source.h } *mx.GetScale();
+		vec2 position = mx.GetTranslation();
+		float angle = -RadiansToDegrees(mx.GetRotation());
+
+		SDL_Rect dest;
+		dest.x = (int)(position.x - (size.x * origin.x));
+		dest.y = (int)(position.y - (size.y * origin.y));
+		dest.w = (int)size.x;
+		dest.h = (int)size.y;
+
+		SDL_Point center{(int)(size.x * origin.x), (int)(size.y * origin.y) };
+
+		// https://wiki.libsdl.org/SDL2/SDL_RenderCopyEx
+		SDL_RenderCopyEx(m_renderer, texture->m_texture, (SDL_Rect*)&source, &dest, (double)angle, &center, 
+			horizontalFlip ? SDL_FLIP_NONE : SDL_FLIP_HORIZONTAL);
+	}
+
 	Renderer g_renderer;
 }

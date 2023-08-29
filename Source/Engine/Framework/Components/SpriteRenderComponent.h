@@ -20,6 +20,9 @@ namespace neu
 
 	public:
 		Rect source;
+		bool flipH = false;
+		vec2 origin{ 0.5f, 0.5f };
+
 		std::string textureName;
 		res_t<Texture> m_texture;
 

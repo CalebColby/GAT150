@@ -1,5 +1,6 @@
 INFORMATION: Factory.h(69): Class Creator Registered: Enemy
 INFORMATION: Factory.h(69): Class Creator Registered: Player
+INFORMATION: Factory.h(69): Class Creator Registered: TilemapComponent
 INFORMATION: Factory.h(69): Class Creator Registered: TextRenderComponent
 INFORMATION: Factory.h(69): Class Creator Registered: SpriteRenderComponent
 INFORMATION: Factory.h(69): Class Creator Registered: SpriteAnimRenderComponent
@@ -12,4 +13,6 @@ INFORMATION: Factory.h(69): Class Creator Registered: Actor
 INFORMATION: main.cpp(22): Initializing Engine...
 INFORMATION: main.cpp(35): Engine Initialized
 INFORMATION: Factory.h(79): Prototype Creator Registered: Crate
+INFORMATION: Factory.h(79): Prototype Creator Registered: tile01
+INFORMATION: Factory.h(79): Prototype Creator Registered: tile02
 INFORMATION: main.cpp(40): Game Initialized

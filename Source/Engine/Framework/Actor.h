@@ -42,7 +42,7 @@ namespace neu
 		friend class Emitter;
 		friend class Enemy;
 		friend class Actor;
-
+		friend class Component;
 
 	public:
 		neu::Transform transform;
@@ -51,14 +51,13 @@ namespace neu
 		bool persistent = false;
 		bool prototype = false;
 
+		class Scene* m_scene = nullptr;
+
 	protected:
 		std::vector<std::unique_ptr<Component>> components;
 
-		
-		
 		float lifespan = -1.0f;
 
-		class Scene* m_scene = nullptr;
 		class Game* m_game = nullptr;
 	};
 
