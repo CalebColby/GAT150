@@ -17,6 +17,10 @@ namespace neu
 			transform{ transform }
 		{}
 		Actor(const Actor& other);
+		virtual ~Actor() {
+			OnDestroy();
+		}
+
 
 		virtual bool Initialize() override;
 		virtual void OnDestroy() override;
