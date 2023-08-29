@@ -2,6 +2,8 @@
 #include "Actor.h"
 #include <list>
 
+#define ADD_ACTOR(actor) m_scene->Add(std::move(actor))
+
 namespace neu
 {
 	class Renderer;

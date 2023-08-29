@@ -17,7 +17,7 @@ namespace neu
 				auto SpriteComponent = m_owner->GetComponent<SpriteRenderComponent>();
 				if (SpriteComponent)
 				{
-					data.size = vec2{ SpriteComponent->source.w, SpriteComponent->source.y };
+					data.size = vec2{ SpriteComponent->source.w, SpriteComponent->source.h };
 				}
 			}
 
