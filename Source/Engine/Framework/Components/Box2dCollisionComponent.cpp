@@ -7,18 +7,19 @@ namespace neu
 {
 	CLASS_REGISTER(Box2DCollisionComponent)
 
-	bool Box2DCollisionComponent::Initialize()
+		bool Box2DCollisionComponent::Initialize()
 	{
 		auto component = m_owner->GetComponent<Box2DPhysicsComponent>();
 		if (component)
 		{
-			if (data.size.x == 0 && data.size.y == 0) 
+			auto SpriteComponent = m_owner->GetComponent<SpriteRenderComponent>();
+			if (SpriteComponent)
 			{
-				auto SpriteComponent = m_owner->GetComponent<SpriteRenderComponent>();
-				if (SpriteComponent)
+				if (data.size.x == 0 && data.size.y == 0)
 				{
 					data.size = vec2{ SpriteComponent->source.w, SpriteComponent->source.h };
 				}
+				data.offset = SpriteComponent->origin - vec2{ 0.5f, 0.5f };
 			}
 
 			data.size = data.size * scaleOffset * m_owner->transform.scale;
@@ -45,7 +46,7 @@ namespace neu
 		READ_NAME_DATA(value, "size", data.size);
 		READ_NAME_DATA(value, "density", data.density);
 		READ_NAME_DATA(value, "friction", data.friction);
-		READ_NAME_DATA(value, "resitution", data.restitution);
+		READ_NAME_DATA(value, "restitution", data.restitution);
 		READ_NAME_DATA(value, "isTrigger", data.isTrigger);
 
 		READ_DATA(value, scaleOffset);

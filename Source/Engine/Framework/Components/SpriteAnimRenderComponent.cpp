@@ -10,9 +10,11 @@ namespace neu
 	{
 		SpriteRenderComponent::Initialize();
 
-		SetSequence(defaultSequenceName);
-		UpdateSource();
-
+		SetSequence(defaultSequenceName, false);
+		if (source.w == 0 && source.h == 0) 
+		{
+			UpdateSource();
+		}
 		return true;
 	}
 
@@ -32,7 +34,7 @@ namespace neu
 		UpdateSource();
 	}
 
-	void SpriteAnimRenderComponent::SetSequence(const std::string& sequenceName, bool force)
+	void SpriteAnimRenderComponent::SetSequence(const std::string& sequenceName, bool update, bool force)
 	{
 		if (m_sequence && m_sequence->name == sequenceName && !force) return;
 
@@ -42,6 +44,8 @@ namespace neu
 			if (m_sequence->texture) m_texture = m_sequence->texture;
 			frame = m_sequence->startFrame;
 			frameTimer = 1.0f / m_sequence->fps;
+
+			if(update) UpdateSource();
 		}
 	}
 
@@ -51,12 +55,12 @@ namespace neu
 
 		vec2 cellSize = m_texture->GetSize() / vec2{m_sequence->numColumns, m_sequence->numRows};
 		int column = (frame - 1) % m_sequence->numColumns;
-		int row = (frame - 1) % m_sequence->numRows;
+		int row = (frame - 1) / m_sequence->numColumns;
 
 		source.x = (int)(column * cellSize.x);
 		source.y = (int)(row * cellSize.y);
-		source.h = (int)(cellSize.x);
-		source.w = (int)(cellSize.y);
+		source.w = (int)(cellSize.x);
+		source.h = (int)(cellSize.y);
 	}
 
 	void SpriteAnimRenderComponent::Read(const json_t& value)

@@ -20,30 +20,41 @@ void Player::Update(float dt)
 {
 	Actor::Update(dt);
 
+	bool onGround = (groundCount > 0);
+	neu::vec2 velocity = m_physicsComponent->m_velocity;
+
 	//Movement
 	float dir = 0;
 	if (neu::g_inputSystem.GetKeyDown(SDL_SCANCODE_A)) dir = -1;
 	if (neu::g_inputSystem.GetKeyDown(SDL_SCANCODE_D)) dir = 1;
 
 	neu::vec2 forward = neu::vec2{ 1, 0 };
+	
+	if (dir)
+	{
+		velocity.x += dt * speed * dir * ((onGround) ? 1 : 0.25f);
+		velocity.x = neu::Clamp(velocity.x, -maxSpeed, maxSpeed);
+		m_physicsComponent->SetVelocity(velocity);
+	}
 
-	m_physicsComponent->ApplyForce(forward * speed * dir);
+	//m_physicsComponent->ApplyForce(forward * speed * dir);
 
 	//Jump
-	bool onGround = (groundCount > 0);
+	
 	if (onGround && 
 		neu::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE) &&
 		!neu::g_inputSystem.GetPreviousKeyDown(SDL_SCANCODE_SPACE))
 	{
 		neu::vec2 up{ 0, -1 };
-		m_physicsComponent->SetVelocity(up * jumpForce);
+		m_physicsComponent->SetVelocity(velocity + (up * jumpForce));
 	}
 
+	m_physicsComponent->SetGravityScale((velocity.y > 0) ? 3.0f : 1.0f);
+
 	//Animation
-	neu::vec2 velocity = m_physicsComponent->m_velocity;
 	if (std::fabs(velocity.x) > 0.2f)
 	{
-		if(dir != 0) m_animComponent->flipH = (dir > 0);
+		if(dir != 0) m_animComponent->flipH = (dir < 0);
 		m_animComponent->SetSequence("run");
 	}
 	else 
@@ -78,4 +89,5 @@ void Player::Read(const neu::json_t& value)
 
 	READ_DATA(value, jumpForce);
 	READ_DATA(value, speed);
+	READ_DATA(value, maxSpeed);
 }

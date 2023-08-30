@@ -85,17 +85,19 @@
       "tag": "Player",
       "persistent": true,
       "speed": 120,
-      "jumpForce": 5,
+      "maxSpeed": 12,
+      "jumpForce": 15,
       "transform": {
         "position": [ 440, 300 ],
-        "scale": 2,
+        "scale": 1.5,
         "rotation": 0
       },
       "components": [
         {
           "type": "SpriteAnimRenderComponent",
           "defaultSequenceName": "idle",
-          "origin": [0.5, 0.75],
+          "origin": [ 0.5, 1 ],
+          "source": [ 0, 0, 48, 75 ],
           "sequences": [
             {
               "name": "idle",
@@ -125,7 +127,8 @@
         },
         {
           "type": "Box2DCollisionComponent",
-          "scaleOffset": [0.5, 0.5]
+          "scaleOffset": [ 0.25, 0.5 ],
+          "restitution": 0
         }
       ]
     },
@@ -165,26 +168,6 @@
         {
           "type": "Box2DCollisionComponent",
           "isTrigger": true
-        }
-      ]
-    },
-    {
-      "type": "Actor",
-      "tag": "Ground",
-      "transform": {
-        "position": [
-          400,
-          520
-        ]
-      },
-      "components": [
-        {
-          "type": "Box2DPhysicsComponent",
-          "isDynamic": false
-        },
-        {
-          "type": "Box2DCollisionComponent",
-          "size": [ 600, 20 ]
         }
       ]
     },

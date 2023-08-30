@@ -43,6 +43,8 @@ namespace neu
 		int m_width;
 		int m_height;
 
+		void DrawHitBox(class CollisionComponent* collision, Color color = { 1, 0, 0, 1 });
+
 		SDL_Renderer* m_renderer = nullptr;
 		SDL_Window* m_window = nullptr;
 	};

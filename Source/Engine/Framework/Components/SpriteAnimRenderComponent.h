@@ -30,7 +30,7 @@ namespace neu
 		bool Initialize() override;
 		void Update(float dt) override;
 
-		void SetSequence(const std::string& sequenceName, bool force = false);
+		void SetSequence(const std::string& sequenceName, bool update = true, bool force = false);
 		void UpdateSource();
 
 	public:

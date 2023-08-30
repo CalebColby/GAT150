@@ -16,8 +16,8 @@ namespace neu
 			{
 				source.x = 0;
 				source.y = 0;
-				source.w = m_texture->GetSize().x;
-				source.h = m_texture->GetSize().y;
+				source.w = (int)m_texture->GetSize().x;
+				source.h = (int)m_texture->GetSize().y;
 			}
 		}
 

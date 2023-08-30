@@ -11,6 +11,7 @@ namespace neu
 		virtual void ApplyTorque(const float torque) = 0;
 
 		virtual void SetVelocity(const vec2& velocity) { this->m_velocity = velocity; }
+		virtual void SetGravityScale(float scale) {  }
 
 	public:
 		vec2 m_velocity;

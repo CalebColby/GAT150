@@ -24,6 +24,7 @@ public:
 
 private:
 	float speed = 0;
+	float maxSpeed = 0;
 	float jumpForce = 1;
 	float m_health = 100.0f;
 	int groundCount = 0;
