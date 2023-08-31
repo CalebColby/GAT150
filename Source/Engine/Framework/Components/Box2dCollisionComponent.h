@@ -1,6 +1,5 @@
 #pragma once
 #include "CollisionComponent.h"
-#include "Physics/PhysicsSystem.h"
 #include <functional>
 
 namespace neu
@@ -16,8 +15,10 @@ namespace neu
 		virtual bool Initialize() override;
 		virtual void Update(float dt) override;
 
+		bool ModifyCollision(const float offset, bool restore = false) override;
+
 	private:
-		PhysicsSystem::CollisionData data;
 		vec2 scaleOffset = vec2{ 1, 1 };
+		class Box2DPhysicsComponent* m_physics;
 	};
 }

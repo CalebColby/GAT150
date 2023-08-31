@@ -9,8 +9,8 @@ namespace neu
 
 		bool Box2DCollisionComponent::Initialize()
 	{
-		auto component = m_owner->GetComponent<Box2DPhysicsComponent>();
-		if (component)
+		m_physics = m_owner->GetComponent<Box2DPhysicsComponent>();
+		if (m_physics)
 		{
 			auto SpriteComponent = m_owner->GetComponent<SpriteRenderComponent>();
 			if (SpriteComponent)
@@ -22,16 +22,10 @@ namespace neu
 				data.offset = SpriteComponent->origin - vec2{ 0.5f, 0.5f };
 			}
 
-			data.size = data.size * scaleOffset * m_owner->transform.scale;
+			data.size *= scaleOffset * m_owner->transform.scale;
 
-			if (component->m_body->GetType() == b2_staticBody)
-			{
-				PhysicsSystem::Instance().SetCollisionBoxStatic(component->m_body, data, m_owner);
-			}
-			else
-			{
-				PhysicsSystem::Instance().SetCollisionBox(component->m_body, data, m_owner);
-			}
+			if (m_physics->m_body->GetType() == b2_staticBody) PhysicsSystem::Instance().SetCollisionBoxStatic(m_physics->m_body, data, m_owner);
+			else PhysicsSystem::Instance().SetCollisionBox(m_physics->m_body, data, m_owner);
 		}
 
 		return true;
@@ -39,6 +33,24 @@ namespace neu
 
 	void Box2DCollisionComponent::Update(float dt)
 	{
+		
+	}
+
+	bool Box2DCollisionComponent::ModifyCollision(const float sizeOffset, bool restore)
+	{
+		if (!m_physics) return false;
+
+		if (!m_changedValues) return false;
+		m_changedValues = false;
+
+		
+
+		PhysicsSystem::CollisionData newData = data;
+		if(!restore) newData.size *= sizeOffset;
+		if (m_physics->m_body->GetType() == b2_staticBody) PhysicsSystem::Instance().SetCollisionBoxStatic(m_physics->m_body, newData, m_owner);
+		else PhysicsSystem::Instance().SetCollisionBox(m_physics->m_body, newData, m_owner);
+
+		return true;
 	}
 
 	void Box2DCollisionComponent::Read(const json_t& value)

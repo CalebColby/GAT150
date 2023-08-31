@@ -31,9 +31,9 @@ void Enemy::Update(float dt)
 
 void Enemy::OnCollisionEnter(Actor* other)
 {
-	if (other->tag == "Player")
+	if (other->tag == "PlayerAttack")
 	{
-		//destroyed = true;
+		destroyed = true;
 	}
 }
 

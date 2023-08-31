@@ -12,7 +12,8 @@ INFORMATION: Factory.h(69): Class Creator Registered: Box2DCollisionComponent
 INFORMATION: Factory.h(69): Class Creator Registered: Actor
 INFORMATION: main.cpp(22): Initializing Engine...
 INFORMATION: main.cpp(35): Engine Initialized
-INFORMATION: Factory.h(79): Prototype Creator Registered: Crate
 INFORMATION: Factory.h(79): Prototype Creator Registered: tile01
 INFORMATION: Factory.h(79): Prototype Creator Registered: tile02
-INFORMATION: main.cpp(40): Game Initialized
+INFORMATION: Factory.h(79): Prototype Creator Registered: Crate
+INFORMATION: Factory.h(79): Prototype Creator Registered: PlayerAttack
+INFORMATION: main.cpp(42): Game Initialized

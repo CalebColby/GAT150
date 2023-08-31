@@ -66,6 +66,7 @@ namespace neu
 
 	void PhysicsSystem::SetCollisionBoxStatic(b2Body* body, const CollisionData& data, Actor* actor)
 	{
+
 		Vector2 worldSize = PhysicsSystem::ScreenToWorld(data.size * 0.5f);
 
 		b2Vec2 vs[4] =

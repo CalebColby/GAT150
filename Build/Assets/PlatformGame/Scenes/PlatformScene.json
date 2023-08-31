@@ -19,6 +19,7 @@
     {
       "type": "Actor",
       "name": "Coin",
+      "tag": "Coin",
       "persistent": true,
       "transform": {
         "position": [ 400, 300 ],
@@ -44,8 +45,7 @@
         {
           "type": "Box2DPhysicsComponent",
           "damping": 0.98,
-          "gravityScale": 1,
-          "constrainAngle": true
+          "gravityScale": 1
         },
         {
           "type": "Box2DCollisionComponent"
@@ -55,6 +55,7 @@
     {
       "type": "Actor",
       "name": "Crate",
+      "tag": "Crate",
       "prototype": true,
       "persistent": true,
       "transform": {
@@ -80,6 +81,29 @@
       ]
     },
     {
+      "type": "Actor",
+      "name": "PlayerAttack",
+      "tag": "PlayerAttack",
+      "prototype": true,
+      "lifespan": 0.05,
+      "transform": {
+        "position": [ 300, 300 ],
+        "scale": 1,
+        "rotation": 0
+      },
+      "components": [
+        {
+          "type": "Box2DPhysicsComponent",
+          "gravityScale": 0
+        },
+        {
+          "type": "Box2DCollisionComponent",
+          "size": [50, 75],
+          "isTrigger": true
+        }
+      ]
+    },
+    {
       "type": "Player",
       "name": "Player",
       "tag": "Player",
@@ -89,7 +113,7 @@
       "jumpForce": 15,
       "transform": {
         "position": [ 440, 300 ],
-        "scale": 1.5,
+        "scale": 2,
         "rotation": 0
       },
       "components": [
@@ -116,6 +140,61 @@
               "startFrame": 1,
               "endFrame": 10,
               "textureName": "Sprites/Player/SpriteSheets/_Run.png"
+            },
+            {
+              "name": "jump",
+              "fps": 5,
+              "numColumns": 3,
+              "numRows": 1,
+              "startFrame": 1,
+              "endFrame": 3,
+              "textureName": "Sprites/Player/SpriteSheets/_Jump.png"
+            },
+            {
+              "name": "fall",
+              "fps": 5,
+              "numColumns": 3,
+              "numRows": 1,
+              "startFrame": 1,
+              "endFrame": 3,
+              "textureName": "Sprites/Player/SpriteSheets/_Fall.png"
+            },
+            {
+              "name": "crouch",
+              "fps": 1,
+              "numColumns": 1,
+              "numRows": 1,
+              "startFrame": 1,
+              "endFrame": 1,
+              "textureName": "Sprites/Player/SpriteSheets/_Crouch.png"
+            },
+            {
+              "name": "crouchWalk",
+              "fps": 10,
+              "numColumns": 8,
+              "numRows": 1,
+              "startFrame": 1,
+              "endFrame": 8,
+              "textureName": "Sprites/Player/SpriteSheets/_CrouchWalk.png"
+            },
+            {
+              "name": "crouchAttack",
+              "fps": 5,
+              "numColumns": 4,
+              "numRows": 1,
+              "startFrame": 1,
+              "endFrame": 4,
+              "textureName": "Sprites/Player/SpriteSheets/_CrouchAttack.png"
+            },
+            {
+              "name": "attack",
+              "fps": 12,
+              "numColumns": 6,
+              "numRows": 1,
+              "startFrame": 1,
+              "endFrame": 6,
+              "textureName": "Sprites/Player/SpriteSheets/_Attack2.png",
+              "loop": false
             }
           ]
         },

@@ -49,6 +49,21 @@ namespace neu
 		}
 	}
 
+	void SpriteAnimRenderComponent::SetSequence(const std::string& sequenceName, const std::string& nextSequneceName, bool update, bool force)
+	{
+		if (m_sequence && m_sequence->name == sequenceName && !force) return;
+
+		if (m_sequences.find(sequenceName) != m_sequences.end())
+		{
+			m_sequence = &m_sequences[sequenceName];
+			if (m_sequence->texture) m_texture = m_sequence->texture; 
+			frame = m_sequence->startFrame; 
+			frameTimer = 1.0f / m_sequence->fps; 
+
+			if (update) UpdateSource(); 
+		}
+	}
+
 	void SpriteAnimRenderComponent::UpdateSource()
 	{
 		if (!m_texture) return;

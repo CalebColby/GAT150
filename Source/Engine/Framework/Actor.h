@@ -13,8 +13,9 @@ namespace neu
 		CLASS_DECLARATION(Actor)
 
 		Actor() = default;
-		Actor(const neu::Transform& transform) :
-			transform{ transform }
+		Actor(const neu::Transform& transform, float lifespan = -1.0f) :
+			transform{ transform },
+			lifespan{ lifespan }
 		{}
 		Actor(const Actor& other);
 		virtual ~Actor() {
@@ -41,6 +42,7 @@ namespace neu
 		friend class Game;
 		friend class Emitter;
 		friend class Enemy;
+		friend class Player;
 		friend class Actor;
 		friend class Component;
 

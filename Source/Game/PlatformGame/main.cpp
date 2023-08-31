@@ -34,6 +34,8 @@ int main(int argc, char* argv[])
 	neu::PhysicsSystem::Instance().Initialize();
 	INFO_LOG("Engine Initialized");
 
+	neu::g_audioSystem.AddAudio("music", "Audio/FantasyFightMusic.mp3");
+
 	auto game = make_unique<PlatformGame>();
 	game->Initialize();
 

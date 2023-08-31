@@ -1,6 +1,7 @@
 #pragma once
 #include "Framework/Actor.h"
 #include "Framework/Components/PhysicsComponent.h"
+#include "Framework/Components/CollisionComponent.h"
 #include "Framework/Components/SpriteAnimRenderComponent.h"
 
 class Player : public neu::Actor
@@ -27,11 +28,16 @@ private:
 	float maxSpeed = 0;
 	float jumpForce = 1;
 	float m_health = 100.0f;
+	float attackTimer = 0.5f;
 	int groundCount = 0;
+	int attackCount = 0;
+	int facing = 1;
 
 	bool m_poweredUp = false;
+	bool m_isAttacking = false;
 
 	neu::PhysicsComponent* m_physicsComponent = nullptr;
+	neu::CollisionComponent* m_collisionComponent = nullptr;
 	neu::SpriteAnimRenderComponent* m_animComponent = nullptr;
 };
 

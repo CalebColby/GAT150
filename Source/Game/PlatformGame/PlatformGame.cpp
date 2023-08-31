@@ -8,9 +8,11 @@
 bool PlatformGame::Initialize()
 {
 	m_scene = std::make_unique<neu::Scene>();
-	m_scene->Load("Scenes/PlatformScene.json");
 	m_scene->Load("Scenes/tilemap.json");
+	m_scene->Load("Scenes/PlatformScene.json");
 	m_scene->Initialize();
+
+	neu::g_audioSystem.PlayOneShot("music", true); 
 
 	return true;
 }
