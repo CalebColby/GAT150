@@ -24,14 +24,16 @@ void Player::Update(float dt)
 	//Upkeep
 	bool isCrouching = false;
 	bool onGround = (groundCount > 0);
+	bool isDead = (m_health <= 0);
 	neu::vec2 velocity = m_physicsComponent->m_velocity;
+	if (m_hitTimer > 0) m_hitTimer -= dt;
 
 
 	//Movement
 	float dir = 0;
-	if (neu::g_inputSystem.GetKeyDown(SDL_SCANCODE_A)) dir = -1;
-	if (neu::g_inputSystem.GetKeyDown(SDL_SCANCODE_D)) dir = 1;
-	if (neu::g_inputSystem.GetKeyDown(SDL_SCANCODE_S) && onGround) isCrouching = true;
+	if (neu::g_inputSystem.GetKeyDown(SDL_SCANCODE_A) && !isDead) dir = -1;
+	if (neu::g_inputSystem.GetKeyDown(SDL_SCANCODE_D) && !isDead) dir =  1;
+	if (neu::g_inputSystem.GetKeyDown(SDL_SCANCODE_S) && onGround && !isDead) isCrouching = true;
 
 	neu::vec2 forward = neu::vec2{ 1, 0 };
 
@@ -44,7 +46,8 @@ void Player::Update(float dt)
 	}
 
 	//Jump
-	if (onGround &&
+
+	if (onGround && !isDead &&
 		neu::g_inputSystem.GetKeyDown(SDL_SCANCODE_SPACE) &&
 		!neu::g_inputSystem.GetPreviousKeyDown(SDL_SCANCODE_SPACE))
 	{
@@ -54,7 +57,7 @@ void Player::Update(float dt)
 	m_physicsComponent->SetGravityScale((velocity.y > 0) ? 3.0f : 1.0f);
 
 	//Attack
-	if (onGround &&
+	if (onGround && !isDead && 
 		neu::g_inputSystem.GetKeyDown(SDL_SCANCODE_Q) &&
 		!neu::g_inputSystem.GetPreviousKeyDown(SDL_SCANCODE_Q))
 	{
@@ -82,22 +85,22 @@ void Player::Update(float dt)
 	//Animation
 	if (dir != 0) m_animComponent->flipH = (dir < 0);
 
-
-	if (!onGround) m_animComponent->SetSequence((velocity.y <= 0) ? "jump" : "fall");
-	else if (isCrouching) m_animComponent->SetSequence((m_isAttacking) ? "crouchAttack" : 
-		(std::fabs(velocity.x) > 0.2f) ? "crouchWalk" : "crouch");
+	if (isDead) m_animComponent->SetSequence("death"); 
+	else if (m_hitTimer > 0) m_animComponent->SetSequence("hit");
+	else if (!onGround) m_animComponent->SetSequence((velocity.y <= 0) ? "jump" : "fall");
+	else if (isCrouching) m_animComponent->SetSequence((m_isAttacking) ? "crouchAttack" :  
+			(std::fabs(velocity.x) > 0.2f) ? "crouchWalk" : "crouch");
 	else if (m_isAttacking) m_animComponent->SetSequence("attack");
+	else if (m_health <= 0) m_animComponent->SetSequence("death");
 	else m_animComponent->SetSequence((std::fabs(velocity.x) > 0.2f) ? "run" : "idle");
-
-
 }
 
 void Player::OnCollisionEnter(Actor* other)
 {
-	if (other->tag == "Enemy")
+	if (other->tag == "Enemy" && m_hitTimer <= 0)
 	{
-		//destroyed = true;
-		//EVENT_DISPATCH("OnPlayerDead", 0);
+		m_health -= neu::randomf(5.0f, 10.0f);
+		m_hitTimer = 0.3;
 	}
 
 	if (other->tag == "Ground") groundCount++;

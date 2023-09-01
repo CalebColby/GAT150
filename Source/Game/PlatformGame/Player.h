@@ -29,6 +29,7 @@ private:
 	float jumpForce = 1;
 	float m_health = 100.0f;
 	float attackTimer = 0.5f;
+	float m_hitTimer = 0;
 	int groundCount = 0;
 	int attackCount = 0;
 	int facing = 1;

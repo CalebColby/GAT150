@@ -29,9 +29,10 @@ namespace neu
 		if (m_sounds.find(name) == m_sounds.end())
 		{
 			FMOD::Sound* sound = nullptr;
-			m_fmodSystem -> createSound(filename.c_str(), FMOD_DEFAULT, 0, &sound);
+			m_fmodSystem->createSound(filename.c_str(), FMOD_DEFAULT, 0, &sound);
 			m_sounds[name] = sound;
 		}
+		
 	}
 
 	void AudioSystem::PlayOneShot(const std::string& name, bool loop)
@@ -40,8 +41,6 @@ namespace neu
 		if (iter != m_sounds.end())
 		{
 			FMOD::Sound* sound = iter->second;
-			sound->setMode(FMOD_LOOP_OFF);
-
 			sound->setMode(loop ? FMOD_LOOP_NORMAL : FMOD_LOOP_OFF);
 
 			FMOD::Channel* channel;

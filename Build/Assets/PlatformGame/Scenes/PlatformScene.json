@@ -86,11 +86,6 @@
       "tag": "PlayerAttack",
       "prototype": true,
       "lifespan": 0.05,
-      "transform": {
-        "position": [ 300, 300 ],
-        "scale": 1,
-        "rotation": 0
-      },
       "components": [
         {
           "type": "Box2DPhysicsComponent",
@@ -98,7 +93,7 @@
         },
         {
           "type": "Box2DCollisionComponent",
-          "size": [50, 75],
+          "size": [50, 50],
           "isTrigger": true
         }
       ]
@@ -110,10 +105,10 @@
       "persistent": true,
       "speed": 120,
       "maxSpeed": 12,
-      "jumpForce": 15,
+      "jumpForce": 10,
       "transform": {
         "position": [ 440, 300 ],
-        "scale": 2,
+        "scale": 1.5,
         "rotation": 0
       },
       "components": [
@@ -195,6 +190,25 @@
               "endFrame": 6,
               "textureName": "Sprites/Player/SpriteSheets/_Attack2.png",
               "loop": false
+            },
+            {
+              "name": "hit",
+              "fps": 1,
+              "numColumns": 1,
+              "numRows": 1,
+              "startFrame": 1,
+              "endFrame": 1,
+              "textureName": "Sprites/Player/SpriteSheets/_Hit.png"
+            },
+            {
+              "name": "death",
+              "fps": 12,
+              "numColumns": 10,
+              "numRows": 1,
+              "startFrame": 1,
+              "endFrame": 10,
+              "textureName": "Sprites/Player/SpriteSheets/_Death.png",
+              "loop": false
             }
           ]
         },
@@ -215,11 +229,10 @@
       "type": "Enemy",
       "name": "Enemy",
       "tag": "Enemy",
-      "speed": 20,
-      "jumpForce": 5,
+      "speed": 1,
       "transform": {
         "position": [ 100, 300 ],
-        "scale": 2,
+        "scale": 0.5,
         "rotation": 0
       },
       "components": [
@@ -241,7 +254,7 @@
         {
           "type": "Box2DPhysicsComponent",
           "damping": 0.99,
-          "gravityScale": 0.2,
+          "gravityScale": 0.1,
           "constrainAngle": true
         },
         {
